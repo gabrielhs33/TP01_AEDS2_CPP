@@ -13,9 +13,9 @@ class Aluno {
     public:
 
         int id;
-        std::string nome;
-        std::string matricula;
-        std::string data_nascimento;
+        char nome[50];
+        char matricula[10];
+        char data_nascimento[11];
         double coeficiente;
 };
 
@@ -23,7 +23,7 @@ class Aluno {
 void imprime(Aluno *aluno);
 
 //Cria aluno
-Aluno* aluno(int id, std::string nome, std::string matricula, std::string data_nascimento, std::string coeficiente );
+Aluno* aluno(int id, const char *nome,const  char *matricula, const char *data_nascimento, double coeficiente );
 
 //Salva aluno no arquivo
 void salva (Aluno *aluno, FILE *out);

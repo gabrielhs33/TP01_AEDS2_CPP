@@ -14,5 +14,11 @@ public:
     static void application();
 };
 
+void le_alunos(FILE *in);
+
+void adiciona_aluno(FILE *in);
+
+void insere_5_alunos(FILE *out);
+
 
 #endif //TP01_AEDS2_CPP_MENU_H

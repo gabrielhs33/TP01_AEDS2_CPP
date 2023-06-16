@@ -6,7 +6,7 @@ int main() {
 
     Menu::application();
 
-    std::cout << "Aplicação finalizada" << std::endl;
+    std::cout << "Aplicacao finalizada" << std::endl;
 
     return 0;
 }

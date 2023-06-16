@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <cstring>
 #include "Aluno.h"
 
 //Imprime aluno
@@ -23,13 +24,13 @@ void imprime(Aluno *aluno){
 }
 
 //Cria aluno
-Aluno* aluno(int id, std::string nome, std::string matricula, std::string data_nascimento, double coeficiente){
+Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente){
 
     auto * aluno = new Aluno;
     aluno->id = id;
-    aluno->nome = std::move(nome);
-    aluno->matricula = std::move(matricula);
-    aluno->data_nascimento = std::move(data_nascimento);
+    std::strcpy(aluno->nome, nome);
+    std::strcpy(aluno->matricula, matricula);
+    std::strcpy(aluno->data_nascimento, data_nascimento);
     aluno->coeficiente = coeficiente;
 
     return aluno;
@@ -38,11 +39,12 @@ Aluno* aluno(int id, std::string nome, std::string matricula, std::string data_n
 //Salva aluno no arquivo
 void salva(Aluno *aluno, FILE *out){
 
-    fwrite(&aluno->id,sizeof(int),1,out );
-    fwrite(&aluno->nome,sizeof (std::string),aluno->nome.size(),out);
-    fwrite(&aluno->matricula,sizeof (std::string), aluno->matricula.size(),out);
-    fwrite(&aluno->data_nascimento,sizeof (std::string), aluno->data_nascimento.size(),out);
-    fwrite(&aluno->coeficiente,sizeof (double ), 1,out);
+    fwrite(&aluno->id, sizeof(int), 1, out);
+    //func->nome ao invés de &func->nome, pois string já é ponteiro
+    fwrite(aluno->nome, sizeof(char), sizeof(aluno->nome), out);
+    fwrite(aluno->matricula, sizeof(char), sizeof(aluno->matricula), out);
+    fwrite(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), out);
+    fwrite(&aluno->coeficiente, sizeof(double), 1, out);
 }
 
 // Le um aluno do arquivo in na posicao atual do cursor
@@ -57,21 +59,19 @@ Aluno *le(FILE *in) {
         return nullptr;
     }
 
-    fread(&aluno->nome, sizeof(char), aluno->nome.size(), in);
-    fread(&aluno->matricula, sizeof(char), aluno->matricula.size(), in);
-    fread(&aluno->data_nascimento, sizeof(char), aluno->data_nascimento.size(), in);
-    fread(&aluno->coeficiente, sizeof(double), 1, in);
-
-    imprime(aluno);
+    std::fread(aluno->nome, sizeof(char), sizeof (aluno->nome), in);
+    std::fread(aluno->matricula, sizeof(char), sizeof (aluno->matricula), in);
+    std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
+    std::fread(&aluno->coeficiente, sizeof(double), 1, in);
 
     return aluno;
 }
 
-// Retorna tamanho do funcionario em bytes
+// Retorna tamanho do aluno em bytes
 int tamanho() {
     return sizeof(int)  //cod
-           + sizeof(std::string) //nome
-           + sizeof(std::string) //matricula
-           + sizeof(std::string) //data_nascimento
-           + sizeof(double); //coeficiente
+           + sizeof(char) * 50 //nome
+           + sizeof(char) * 10 //matricula
+           + sizeof(char) * 11 //data_nascimento
+           + sizeof(double); //salario
 }
