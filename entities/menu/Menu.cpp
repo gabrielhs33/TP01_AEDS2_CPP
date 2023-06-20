@@ -127,20 +127,21 @@ Aluno* cadastra_aluno(){
     }
 
     int contar_registros(FILE* out) {
+
         if (out == nullptr) {
             std::cerr << "Arquivo inválido." << std::endl;
             return -1;
         }
 
         std::fseek(out, 0, SEEK_END);
-        long tamanhoArquivo = std::ftell(out);
+        long tamanho_arquivo = std::ftell(out);
         std::rewind(out);
 
-        int tamanhoRegistro = tamanho(); // Chamada à função tamanho()
+        int tamanho_registro = tamanho();
 
-        int totalRegistros = tamanhoArquivo / tamanhoRegistro;
+        int total_registros = tamanho_arquivo / tamanho_registro;
 
-        return totalRegistros;
+        return total_registros;
     }
 
 

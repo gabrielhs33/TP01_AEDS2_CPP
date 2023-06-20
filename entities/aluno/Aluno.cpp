@@ -10,16 +10,11 @@
 void imprime(Aluno *aluno){
 
     std::cout<<"**********************************************"<<std::endl;
-    std::cout<<"aluno de codigo ";
-    std::cout<< aluno->id<<std::endl;
-    std::cout<<"Nome: ";
-    std::cout<<aluno->nome<<std::endl;
-    std::cout<<"Matricula: ";
-    std::cout<<aluno->matricula<<std::endl;
-    std::cout<<"Data de Nascimento: ";
-    std::cout<<aluno->data_nascimento<<std::endl;
-    std::cout<<"Coeficiente:";
-    std::cout<<aluno->coeficiente<<std::endl;
+    std::cout<<"aluno de codigo "<< aluno->id<<std::endl;
+    std::cout<<"Nome: "<<aluno->nome<<std::endl;
+    std::cout<<"Matricula: "<<aluno->matricula<<std::endl;
+    std::cout<<"Data de Nascimento: "<<aluno->data_nascimento<<std::endl;
+    std::cout<<"Coeficiente:"<<aluno->coeficiente<<std::endl;
     std::cout<<"**********************************************"<<std::endl;
 }
 
@@ -74,4 +69,30 @@ int tamanho() {
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 11 //data_nascimento
            + sizeof(double); //salario
+}
+
+int tamanho_registro() {
+    return sizeof(Aluno);
+}
+
+Aluno* busca_binaria(int id, FILE *arq, int tam) {
+
+    int left = 0, right = tam - 1;
+    while(left <= right)
+    {
+        int middle = (left + right) / 2;
+        fseek(arq, middle * tamanho_registro(), SEEK_SET);
+        Aluno *aluno = le(arq);
+        if(id == aluno->id) {
+            return aluno;
+        }
+        else if(aluno->id < id) {
+            left = middle + 1;
+        }
+        else {
+            right = middle - 1;
+        }
+    }
+
+    return nullptr;
 }
