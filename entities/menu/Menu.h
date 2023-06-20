@@ -20,7 +20,7 @@ void adiciona_aluno(FILE *in);
 
 void insere_5_alunos(FILE *out);
 
-int contarRegistros(FILE *out);
+int contar_registros(FILE *out);
 
 
 #endif //TP01_AEDS2_CPP_MENU_H
