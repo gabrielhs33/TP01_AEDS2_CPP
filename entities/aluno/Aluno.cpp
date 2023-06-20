@@ -68,21 +68,23 @@ int tamanho() {
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 11 //data_nascimento
-           + sizeof(double); //salario
+           + sizeof(double); //coeficiente
 }
 
 int tamanho_registro() {
     return sizeof(Aluno);
 }
 
-Aluno* busca_binaria(int id, FILE *arq, int tam) {
+Aluno* busca_id(int id, FILE *arq,int tam) {
 
     int left = 0, right = tam - 1;
     while(left <= right)
     {
         int middle = (left + right) / 2;
-        fseek(arq, middle * tamanho_registro(), SEEK_SET);
-        Aluno *aluno = le(arq);
+        fseek(arq, middle * tamanho(), SEEK_SET);
+
+        Aluno* aluno = le(arq);
+
         if(id == aluno->id) {
             return aluno;
         }

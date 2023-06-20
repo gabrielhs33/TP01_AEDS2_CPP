@@ -35,5 +35,7 @@ Aluno *le(FILE *in);
 //// Retorna tamanho do aluno em bytes
 int tamanho();
 
+Aluno* busca_id(int id, FILE *arq, int tam);
+
 
 #endif //TP01_AEDS2_CPP_ALUNO_H

@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <limits>
-#include <fstream>
 #include "Menu.h"
 
 
@@ -23,7 +22,7 @@ void Menu::application() {
             std::cout << "\nInforme a operacao que deseja realizar" << std::endl;
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
-            std::cout << "(4) Ordenar base de dados" << std::endl;
+            std::cout << "(3) Buscar aluno por id" << std::endl;
 
             std::cin>>op;
 
@@ -36,6 +35,13 @@ void Menu::application() {
                 case 2:
 
                     le_alunos(out);
+                    break;
+                case 3:
+
+                    int x;
+                    std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
+                    std::cin>>x;
+                    imprime(busca_id(x,out, contar_registros(out)));
                     break;
             }
         }
@@ -59,7 +65,7 @@ void Menu::application() {
         }
     }
 
-Aluno* cadastra_aluno(){
+Aluno* cadastra_aluno(int cont){
 
     char nome[50];
     char matricula[10];
@@ -68,7 +74,7 @@ Aluno* cadastra_aluno(){
 
     std::cout << "Nome: " << std::endl;
     std::cin.getline(nome, 50);
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    fflush(stdin);
 
     std::cout << "Matricula: " << std::endl;
     std::cin.getline(matricula, 10);
@@ -77,14 +83,16 @@ Aluno* cadastra_aluno(){
     std::cout << "Coeficiente: " << std::endl;
     std::cin>>coeficiente;
 
-    return  aluno(6, nome,matricula,data_nascimento,coeficiente);
+    return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
 }
 
     void adiciona_aluno(FILE *in) {
 
+        int tam = contar_registros(in);
+
         //pula a quantidade de registros cadastrados para posicionar no início do final do arquivo
-        fseek(in, tamanho() * contar_registros(in), SEEK_SET);
-        Aluno* a = cadastra_aluno();
+        fseek(in, tamanho() * tam, SEEK_SET);
+        Aluno* a = cadastra_aluno(tam);
         imprime(a);
         salva(a, in);
         free(a);
@@ -93,7 +101,7 @@ Aluno* cadastra_aluno(){
 
 
         std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
-        fseek(in, tamanho() * contar_registros(in), SEEK_SET);
+        fseek(in, tamanho() * tam, SEEK_SET);
         Aluno *a6 = le(in);
         if (a6 != nullptr) {
 
@@ -105,23 +113,23 @@ Aluno* cadastra_aluno(){
 
         std::cout << "Inserindo 5 alunos no arquivo..." << std::endl;
 
-        Aluno * a1 = aluno(1, "Ana", "000.000.000-00", "01/01/1980", 3000);
+        Aluno * a1 = aluno(1, "Ana", "00", "01/01/1980", 3000);
         salva(a1, out);
         free(a1);
 
-        Aluno * a2 = aluno(2, "Carlos", "111.111.111-11", "01/01/1990", 500);
+        Aluno * a2 = aluno(2, "Carlos", "11", "01/01/1990", 500);
         salva(a2, out);
         free(a2);
 
-        Aluno * a3 = aluno(3, "Fatima", "222.222.222-22", "02/02/1980", 1000);
+        Aluno * a3 = aluno(3, "Fatima", "22", "02/02/1980", 1000);
         salva(a3, out);
         free(a3);
 
-        Aluno * a4 = aluno(4, "Marcelo", "333.333.333-33", "03/03/1990", 1500);
+        Aluno * a4 = aluno(4, "Marcelo", "33", "03/03/1990", 1500);
         salva(a4, out);
         free(a4);
 
-        Aluno * a5 = aluno(5, "Silvia", "444.444.444-44", "04/04/1980", 900);
+        Aluno * a5 = aluno(5, "Silvia", "44", "04/04/1980", 900);
         salva(a5, out);
         free(a5);
     }
