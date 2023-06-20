@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <limits>
+#include <fstream>
 #include "Menu.h"
 
 
@@ -124,6 +125,23 @@ Aluno* cadastra_aluno(){
         Aluno * a5 = aluno(5, "Silvia", "444.444.444-44", "04/04/1980", 900);
         salva(a5, out);
         free(a5);
+    }
+
+    int contar_registros(FILE* out) {
+        if (out == nullptr) {
+            std::cerr << "Arquivo inválido." << std::endl;
+            return -1;
+        }
+
+        std::fseek(out, 0, SEEK_END);
+        long tamanhoArquivo = std::ftell(out);
+        std::rewind(out);
+
+        int tamanhoRegistro = tamanho(); // Chamada à função tamanho()
+
+        int totalRegistros = tamanhoArquivo / tamanhoRegistro;
+
+        return totalRegistros;
     }
 
 
