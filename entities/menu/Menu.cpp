@@ -82,10 +82,9 @@ Aluno* cadastra_aluno(){
 
     void adiciona_aluno(FILE *in) {
 
-        //pula 5 registros para posicionar no início do final do arquivo
-        fseek(in, tamanho() * 5, SEEK_SET);
+        //pula a quantidade de registros cadastrados para posicionar no início do final do arquivo
+        fseek(in, tamanho() * contar_registros(in), SEEK_SET);
         Aluno* a = cadastra_aluno();
-        std::cout<<"aqui";
         imprime(a);
         salva(a, in);
         free(a);
@@ -94,7 +93,7 @@ Aluno* cadastra_aluno(){
 
 
         std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
-        fseek(in, tamanho() * 5, SEEK_SET);
+        fseek(in, tamanho() * contar_registros(in), SEEK_SET);
         Aluno *a6 = le(in);
         if (a6 != nullptr) {
 
