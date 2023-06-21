@@ -72,6 +72,7 @@ Aluno* cadastra_aluno(int cont){
     char data_nascimento[11];
     double coeficiente;
 
+    fflush(stdin);
     std::cout << "Nome: " << std::endl;
     std::cin.getline(nome, 50);
     fflush(stdin);
