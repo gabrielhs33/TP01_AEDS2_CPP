@@ -4,6 +4,9 @@
 
 #include <iostream>
 #include "Menu.h"
+#include "../random/Random.h"
+#include <random>
+#include <cstring>
 
 
 void Menu::application() {
@@ -14,7 +17,7 @@ void Menu::application() {
 
     if (out != nullptr) {
 
-        insere_5_alunos(out);
+        cria_base_dados(out);
 
         while( op != -1 ){
 
@@ -120,29 +123,15 @@ void Menu::application() {
         }
     }
 
-    void insere_5_alunos(FILE *out) {
+    void cria_base_dados(FILE *out){
 
-        std::cout << "Inserindo 5 alunos no arquivo..." << std::endl;
+        for (int i=1; i<20; i++){
 
-        Aluno * a1 = aluno(3, "Ana", "00", "01/01/1980", 3000);
-        salva(a1, out);
-        free(a1);
-
-        Aluno * a2 = aluno(5, "Carlos", "11", "01/01/1990", 500);
-        salva(a2, out);
-        free(a2);
-
-        Aluno * a3 = aluno(2, "Fatima", "22", "02/02/1980", 1000);
-        salva(a3, out);
-        free(a3);
-
-        Aluno * a4 = aluno(1, "Marcelo", "33", "03/03/1990", 1500);
-        salva(a4, out);
-        free(a4);
-
-        Aluno * a5 = aluno(4, "Silvia", "44", "04/04/1980", 900);
-        salva(a5, out);
-        free(a5);
+            Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
+                              Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
+            salva(a, out);
+            free(a);
+        }
     }
 
     int contar_registros(FILE* out) {

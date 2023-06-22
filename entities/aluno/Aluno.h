@@ -23,7 +23,7 @@ class Aluno {
 void imprime(Aluno *aluno);
 
 //Cria aluno
-Aluno* aluno(int id, const char *nome,const  char *matricula, const char *data_nascimento, double coeficiente );
+Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente );
 
 //Salva aluno no arquivo
 void salva (Aluno *aluno, FILE *out);

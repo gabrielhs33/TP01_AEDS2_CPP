@@ -18,10 +18,10 @@ void le_alunos(FILE *in);
 
 void adiciona_aluno(FILE *in);
 
-void insere_5_alunos(FILE *out);
-
 int contar_registros(FILE *out);
 
 void ordena_id(FILE *arq, int tam);
+
+void cria_base_dados(FILE *out);
 
 #endif //TP01_AEDS2_CPP_MENU_H
