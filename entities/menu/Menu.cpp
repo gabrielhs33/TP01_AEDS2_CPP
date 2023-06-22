@@ -22,6 +22,7 @@ void Menu::application() {
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
+            std::cout << "(4) Ordenar alunos pelo id" << std::endl;
 
             std::cin>>op;
 
@@ -41,6 +42,16 @@ void Menu::application() {
                     std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                     std::cin>>x;
                     imprime(busca_id(x,out, contar_registros(out)));
+                    break;
+
+                case 4:
+
+                    ordena_id(out, contar_registros(out));
+                    break;
+
+                default:
+
+                    std::cout<<"informe um valor valido"<<std::endl;
                     break;
             }
         }
@@ -64,27 +75,27 @@ void Menu::application() {
         }
     }
 
-Aluno* cadastra_aluno(int cont){
+    Aluno* cadastra_aluno(int cont){
 
-    char nome[50];
-    char matricula[10];
-    char data_nascimento[11];
-    double coeficiente;
+        char nome[50];
+        char matricula[10];
+        char data_nascimento[11];
+        double coeficiente;
 
-    fflush(stdin);
-    std::cout << "Nome: " << std::endl;
-    std::cin.getline(nome, 50);
-    fflush(stdin);
+        fflush(stdin);
+        std::cout << "Nome: " << std::endl;
+        std::cin.getline(nome, 50);
+        fflush(stdin);
 
-    std::cout << "Matricula: " << std::endl;
-    std::cin.getline(matricula, 10);
-    std::cout << "Data de nascimento: " << std::endl;
-    std::cin.getline(data_nascimento, 11);
-    std::cout << "Coeficiente: " << std::endl;
-    std::cin>>coeficiente;
+        std::cout << "Matricula: " << std::endl;
+        std::cin.getline(matricula, 10);
+        std::cout << "Data de nascimento: " << std::endl;
+        std::cin.getline(data_nascimento, 11);
+        std::cout << "Coeficiente: " << std::endl;
+        std::cin>>coeficiente;
 
-    return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
-}
+        return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
+    }
 
     void adiciona_aluno(FILE *in) {
 
@@ -113,23 +124,23 @@ Aluno* cadastra_aluno(int cont){
 
         std::cout << "Inserindo 5 alunos no arquivo..." << std::endl;
 
-        Aluno * a1 = aluno(1, "Ana", "00", "01/01/1980", 3000);
+        Aluno * a1 = aluno(3, "Ana", "00", "01/01/1980", 3000);
         salva(a1, out);
         free(a1);
 
-        Aluno * a2 = aluno(2, "Carlos", "11", "01/01/1990", 500);
+        Aluno * a2 = aluno(5, "Carlos", "11", "01/01/1990", 500);
         salva(a2, out);
         free(a2);
 
-        Aluno * a3 = aluno(3, "Fatima", "22", "02/02/1980", 1000);
+        Aluno * a3 = aluno(2, "Fatima", "22", "02/02/1980", 1000);
         salva(a3, out);
         free(a3);
 
-        Aluno * a4 = aluno(4, "Marcelo", "33", "03/03/1990", 1500);
+        Aluno * a4 = aluno(1, "Marcelo", "33", "03/03/1990", 1500);
         salva(a4, out);
         free(a4);
 
-        Aluno * a5 = aluno(5, "Silvia", "44", "04/04/1980", 900);
+        Aluno * a5 = aluno(4, "Silvia", "44", "04/04/1980", 900);
         salva(a5, out);
         free(a5);
     }
@@ -151,6 +162,42 @@ Aluno* cadastra_aluno(int cont){
 
         return total_registros;
     }
+
+
+    //selection sort
+    void ordena_id(FILE *arq, int tam) {
+
+        rewind(arq);
+
+        for (int i = 1; i < tam; i++) {
+
+            fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+            Aluno *ai = le(arq);
+            fseek(arq, i * tamanho(), SEEK_SET);
+            Aluno *menor = le(arq);
+            int posmenor = i + 1;
+            for (int j = i + 2; j <= tam; j++) {
+                Aluno *aj = le(arq);
+                if ((aj->id) < (menor->id)) {
+                    menor = aj;
+                    posmenor = j;
+                }
+            }
+
+            if (menor->id < ai->id) {
+
+                fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
+                salva(ai, arq);
+                fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+                salva(menor, arq);
+            }
+        }
+
+
+        fflush(arq);
+    }
+
+
 
 
 
