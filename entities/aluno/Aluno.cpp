@@ -81,16 +81,23 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
 
         Aluno* aluno = le(arq);
 
-        if(id == aluno->id) {
-            return aluno;
-        }
-        else if(aluno->id < id) {
-            left = middle + 1;
-        }
-        else {
-            right = middle - 1;
-        }
-    }
+        if(aluno == nullptr){
 
+            return nullptr;
+        }else{
+
+            if(id == aluno->id) {
+                return aluno;
+            }
+            else if(aluno->id < id) {
+                left = middle + 1;
+            }
+            else {
+                right = middle - 1;
+            }
+        }
+
+
+    }
     return nullptr;
 }

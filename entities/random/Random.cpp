@@ -13,24 +13,24 @@ const char* Random::cria_nome_aleatorio() {
     std::uniform_int_distribution<int> tamanho(5, 20);
 
     int tam= tamanho(rand);
-    std::string stringAleatoria;
+    std::string string_aleatoria;
 
     for (int i = 0; i < tam; ++i) {
 
-        std::uniform_int_distribution<int> intervalo(0, 51);  // Intervalo para letras maiúsculas e minúsculas (A-Z, a-z)
+        std::uniform_int_distribution<int> intervalo(0, 51);
         int indice = intervalo(rand);
         char caractere;
         if (indice < 26) {
-            caractere = 'A' + static_cast<char>(indice);  // Letras maiúsculas
+            caractere = 'A' + static_cast<char>(indice);
         } else {
-            caractere = 'a' + static_cast<char>(indice - 26);  // Letras minúsculas
+            caractere = 'a' + static_cast<char>(indice - 26);
         }
-        stringAleatoria += caractere;
+        string_aleatoria += caractere;
     }
 
-    static char nome_aleatorio[21];  // Tamanho máximo de 20 caracteres + 1 para o caractere nulo '\0'
+    static char nome_aleatorio[21];
 
-    std::strcpy(nome_aleatorio, stringAleatoria.c_str());
+    std::strcpy(nome_aleatorio, string_aleatoria.c_str());
 
     return nome_aleatorio;
 }
@@ -53,7 +53,7 @@ const char* Random::cria_matricula_aleatoria() {
 
     std::string matricula = std::to_string(ano) + "." + mes_str + "." + std::to_string(decimal);
 
-    static char matricula_aleatoria[10];  // Tamanho máximo de 10 caracteres + 1 para o caractere nulo '\0'
+    static char matricula_aleatoria[10];
 
     std::strcpy(matricula_aleatoria, matricula.c_str());
 
