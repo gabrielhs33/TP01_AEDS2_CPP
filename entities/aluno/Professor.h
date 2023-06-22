@@ -20,13 +20,14 @@ void imprime_professor(Professor *professor);
 //Cria professor
 Professor cria_professor(int id, const char *nome, const char *data_nascimento, int telefone);
 
+//Salva informações de professor
 void salva_professor (Professor *professor, FILE *out);
 
 // Le um professor do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para professor lido do arquivo
 Professor *le_professor(FILE *in);
 
-//// Retorna tamanho do professor em bytes
+// Retorna tamanho do professor em bytes
 int tamanho_prof();
 
 Professor* busca_id_professor(int id, FILE *arq, int tam);
