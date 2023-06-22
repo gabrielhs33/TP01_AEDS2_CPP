@@ -23,7 +23,7 @@ void Menu::application() {
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
-            std::cout << "(4) Encerrar a aplicacao" << std::endl;
+
             std::cin>>op;
 
             switch (op){
@@ -43,11 +43,6 @@ void Menu::application() {
                     std::cin>>x;
                     imprime(busca_id(x,out, contar_registros(out)));
                     break;
-                case 4:
-
-                    std::cout<<"Encerrando a aplicacao..."<<std::endl;
-                    fclose(out);
-                    return;
             }
         }
 

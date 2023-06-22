@@ -71,10 +71,6 @@ int tamanho() {
            + sizeof(double); //coeficiente
 }
 
-int tamanho_registro() {
-    return sizeof(Aluno);
-}
-
 Aluno* busca_id(int id, FILE *arq,int tam) {
 
     int left = 0, right = tam - 1;

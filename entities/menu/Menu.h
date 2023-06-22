@@ -22,5 +22,6 @@ void insere_5_alunos(FILE *out);
 
 int contar_registros(FILE *out);
 
+void ordena_id(FILE *arq, int tam);
 
 #endif //TP01_AEDS2_CPP_MENU_H
