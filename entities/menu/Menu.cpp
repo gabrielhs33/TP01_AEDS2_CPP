@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <limits>
 #include "Menu.h"
 #include "../random/Random.h"
 #include <random>
@@ -25,7 +26,6 @@ void Menu::application() {
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
-            std::cout << "(4) Ordenar alunos pelo id" << std::endl;
 
             std::cin>>op;
 
@@ -45,16 +45,6 @@ void Menu::application() {
                     std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                     std::cin>>x;
                     imprime(busca_id(x,out, contar_registros(out)));
-                    break;
-
-                case 4:
-
-                    ordena_id(out, contar_registros(out));
-                    break;
-
-                default:
-
-                    std::cout<<"informe um valor valido"<<std::endl;
                     break;
             }
         }
@@ -78,27 +68,27 @@ void Menu::application() {
         }
     }
 
-    Aluno* cadastra_aluno(int cont){
+Aluno* cadastra_aluno(int cont){
 
-        char nome[50];
-        char matricula[10];
-        char data_nascimento[11];
-        double coeficiente;
+    char nome[50];
+    char matricula[10];
+    char data_nascimento[11];
+    double coeficiente;
 
-        fflush(stdin);
-        std::cout << "Nome: " << std::endl;
-        std::cin.getline(nome, 50);
-        fflush(stdin);
+    fflush(stdin);
+    std::cout << "Nome: " << std::endl;
+    std::cin.getline(nome, 50);
+    fflush(stdin);
 
-        std::cout << "Matricula: " << std::endl;
-        std::cin.getline(matricula, 10);
-        std::cout << "Data de nascimento: " << std::endl;
-        std::cin.getline(data_nascimento, 11);
-        std::cout << "Coeficiente: " << std::endl;
-        std::cin>>coeficiente;
+    std::cout << "Matricula: " << std::endl;
+    std::cin.getline(matricula, 10);
+    std::cout << "Data de nascimento: " << std::endl;
+    std::cin.getline(data_nascimento, 11);
+    std::cout << "Coeficiente: " << std::endl;
+    std::cin>>coeficiente;
 
-        return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
-    }
+    return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
+}
 
     void adiciona_aluno(FILE *in) {
 
@@ -126,7 +116,7 @@ void Menu::application() {
     void cria_base_dados(FILE *out){
 
         for (int i=1; i<20; i++){
-
+    
             Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
                               Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
             salva(a, out);
@@ -151,42 +141,6 @@ void Menu::application() {
 
         return total_registros;
     }
-
-
-    //selection sort
-    void ordena_id(FILE *arq, int tam) {
-
-        rewind(arq);
-
-        for (int i = 1; i < tam; i++) {
-
-            fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-            Aluno *ai = le(arq);
-            fseek(arq, i * tamanho(), SEEK_SET);
-            Aluno *menor = le(arq);
-            int posmenor = i + 1;
-            for (int j = i + 2; j <= tam; j++) {
-                Aluno *aj = le(arq);
-                if ((aj->id) < (menor->id)) {
-                    menor = aj;
-                    posmenor = j;
-                }
-            }
-
-            if (menor->id < ai->id) {
-
-                fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
-                salva(ai, arq);
-                fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-                salva(menor, arq);
-            }
-        }
-
-
-        fflush(arq);
-    }
-
-
 
 
 
