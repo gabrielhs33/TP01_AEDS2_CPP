@@ -12,13 +12,14 @@ class Professor {
         char nome[50];
         char data_nascimento[11];
         int telefone;
+        char CPF[15];
 };
 
 //Imprimir os dados do professor
 void imprime_professor(Professor *professor);
 
 //Cria professor
-Professor cria_professor(int id, const char *nome, const char *data_nascimento, int telefone);
+Professor *professor(int id, const char *nome, const char *data_nascimento, int telefone, const char *CPF);
 
 //Salva informações de professor
 void salva_professor (Professor *professor, FILE *out);

@@ -11,6 +11,7 @@ class Gestor {
             char nome[50];
             char data_nascimento[11];
             int telefone;
+            int CPF;
 };
 
 #endif //TP01_AEDS2_CPP_GESTOR_H
