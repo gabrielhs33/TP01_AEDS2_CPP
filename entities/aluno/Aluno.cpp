@@ -101,3 +101,37 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
     }
     return nullptr;
 }
+
+//selection sort
+void ordena_aluno_id(FILE *arq, int tam) {
+
+    rewind(arq);
+
+    for (int i = 1; i < tam; i++) {
+
+        fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+        Aluno *ai = le(arq);
+        fseek(arq, i * tamanho(), SEEK_SET);
+        Aluno *menor = le(arq);
+        int posmenor = i + 1;
+        for (int j = i + 2; j <= tam; j++) {
+            Aluno *aj = le(arq);
+            if ((aj->id) < (menor->id)) {
+                menor = aj;
+                posmenor = j;
+            }
+        }
+
+        if (menor->id < ai->id) {
+
+            fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
+            salva(ai, arq);
+            fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+            salva(menor, arq);
+        }
+    }
+
+    fflush(arq);
+}
+
+

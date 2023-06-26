@@ -39,8 +39,8 @@ const char* Random::cria_matricula_aleatoria() {
 
     std::random_device rd;
     std::mt19937 rand(rd());
-    std::uniform_int_distribution<int> intervalo_ano(00, 23);  // Intervalo para o ano (xx)
 
+    std::uniform_int_distribution<int> intervalo_ano(00, 23);  // Intervalo para o ano (xx)
     std::uniform_int_distribution<int> intervalo_mes(1, 2);   // Intervalo para o mês (x)
     std::uniform_int_distribution<int> intervalo_decimal(0000, 9999);  // Intervalo para o decimal (xxxx)
 

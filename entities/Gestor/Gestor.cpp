@@ -59,13 +59,13 @@ Gestor *le_gestor(FILE *in){
 }
 
 // Retorna tamanho do gestor em bytes
-int tamanho_prof(){
+/*int tamanho_prof(){
     return sizeof(int)  //cod
            + sizeof(char) * 50 //nome
            + sizeof(char) * 15 //CPF
            + sizeof(char) * 11 //data_nascimento
            + sizeof(int); // telefone
-}
+}*/
 
 Gestor* busca_id_gestor(int id, FILE *arq, int tam){
     int left = 0, right = tam - 1;

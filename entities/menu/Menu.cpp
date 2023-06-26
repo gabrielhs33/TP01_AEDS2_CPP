@@ -3,12 +3,8 @@
 //
 
 #include <iostream>
-#include <limits>
 #include "Menu.h"
 #include "../random/Random.h"
-#include <random>
-#include <cstring>
-
 
 void Menu::application() {
 
@@ -26,6 +22,7 @@ void Menu::application() {
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
+            std::cout << "(4) Ordenar aluno por id" << std::endl;
 
             std::cin>>op;
 
@@ -45,6 +42,16 @@ void Menu::application() {
                     std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                     std::cin>>x;
                     imprime(busca_id(x,out, contar_registros(out)));
+                    break;
+
+                case 4:
+
+                    ordena_aluno_id(out, contar_registros(out));
+                    std::cout<<"alunos ordenados pelo id"<<std::endl;
+                    break;
+                default:
+
+                    std::cout<<"informe um valor valido"<<std::endl;
                     break;
             }
         }

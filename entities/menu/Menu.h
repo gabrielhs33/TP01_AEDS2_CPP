@@ -20,7 +20,7 @@ void adiciona_aluno(FILE *in);
 
 int contar_registros(FILE *out);
 
-void ordena_id(FILE *arq, int tam);
+
 
 void cria_base_dados(FILE *out);
 
