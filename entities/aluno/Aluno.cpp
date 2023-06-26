@@ -134,4 +134,36 @@ void ordena_aluno_id(FILE *arq, int tam) {
     fflush(arq);
 }
 
+//selection sort
+void ordena_aluno_nome(FILE *arq, int tam) {
+
+    rewind(arq);
+
+    for (int i = 1; i < tam; i++) {
+
+        fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+        Aluno *ai = le(arq);
+        fseek(arq, i * tamanho(), SEEK_SET);
+        Aluno *menor = le(arq);
+        int posmenor = i + 1;
+        for (int j = i + 2; j <= tam; j++) {
+            Aluno *aj = le(arq);
+            if (std::strcmp(aj->nome,menor->nome) < 0) {
+                menor = aj;
+                posmenor = j;
+            }
+        }
+
+        if (std::strcmp(menor->nome,ai->nome) < 0 ) {
+
+            fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
+            salva(ai, arq);
+            fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+            salva(menor, arq);
+        }
+    }
+
+    fflush(arq);
+}
+
 

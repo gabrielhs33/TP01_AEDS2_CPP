@@ -23,6 +23,7 @@ void Menu::application() {
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
+            std::cout<<"(5) Ordenar alunos em ordem alfabetica"<<std::endl;
 
             std::cin>>op;
 
@@ -49,6 +50,13 @@ void Menu::application() {
                     ordena_aluno_id(out, contar_registros(out));
                     std::cout<<"alunos ordenados pelo id"<<std::endl;
                     break;
+
+                case 5:
+
+                    ordena_aluno_nome(out, contar_registros(out));
+                    std::cout<<"alunos ordenados pelo nome"<<std::endl;
+                    break;
+
                 default:
 
                     std::cout<<"informe um valor valido"<<std::endl;

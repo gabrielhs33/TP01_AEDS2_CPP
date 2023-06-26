@@ -20,8 +20,6 @@ void adiciona_aluno(FILE *in);
 
 int contar_registros(FILE *out);
 
-
-
 void cria_base_dados(FILE *out);
 
 #endif //TP01_AEDS2_CPP_MENU_H
