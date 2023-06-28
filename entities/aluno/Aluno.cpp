@@ -33,7 +33,8 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
 
 //Salva aluno no arquivo
 void salva(Aluno *aluno, FILE *out){
-
+    char character = '#';
+    fwrite(&character, sizeof(char), 1, out);
     fwrite(&aluno->id, sizeof(int), 1, out);
     //func->nome ao invés de &func->nome, pois string já é ponteiro
     fwrite(aluno->nome, sizeof(char), sizeof(aluno->nome), out);
@@ -48,17 +49,21 @@ Aluno *le(FILE *in) {
 
     auto *aluno = new Aluno;
 
-    if (0 >= fread(&aluno->id, sizeof(int), 1, in)) {
+    int chacter = fgetc(in);
+    if(chacter == '#') {
+        if (0 >= fread(&aluno->id, sizeof(int), 1, in)) {
 
-        free(aluno);
+            free(aluno);
+            return nullptr;
+        }
+        std::fread(aluno->nome, sizeof(char), sizeof(aluno->nome), in);
+        std::fread(aluno->matricula, sizeof(char), sizeof(aluno->matricula), in);
+        std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
+        std::fread(&aluno->coeficiente, sizeof(double), 1, in);
+    }
+    else{
         return nullptr;
     }
-
-    std::fread(aluno->nome, sizeof(char), sizeof (aluno->nome), in);
-    std::fread(aluno->matricula, sizeof(char), sizeof (aluno->matricula), in);
-    std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
-    std::fread(&aluno->coeficiente, sizeof(double), 1, in);
-
     return aluno;
 }
 
@@ -73,7 +78,10 @@ int tamanho() {
 
 Aluno* busca_id(int id, FILE *arq,int tam) {
 
+    clock_t inicio, fim;
+    int count = 0;
     int left = 0, right = tam - 1;
+    inicio = clock();
     while(left <= right)
     {
         int middle = (left + right) / 2;
@@ -82,11 +90,15 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
         Aluno* aluno = le(arq);
 
         if(aluno == nullptr){
-
             return nullptr;
         }else{
 
+            count++;
             if(id == aluno->id) {
+                fim = clock();
+                double time = double(fim - inicio)/CLOCKS_PER_SEC;
+                std::cout << "Tempo gasto na busca por id: " << time << std::endl;
+                std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
                 return aluno;
             }
             else if(aluno->id < id) {
@@ -94,11 +106,17 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
             }
             else {
                 right = middle - 1;
+
             }
+            count++;
         }
 
-
     }
+    fim = clock();
+    double time = double(fim - inicio)/CLOCKS_PER_SEC;
+    std::cout << "Erro: aluno nao encontrado na base de dados. " <<  std::endl;
+    std::cout << "Tempo gasto na busca por id: " << time << std::endl;
+    std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
     return nullptr;
 }
 
@@ -106,6 +124,8 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
 void ordena_aluno_id(FILE *arq, int tam) {
 
     rewind(arq);
+    long int count = 0;
+    clock_t start = clock();
 
     for (int i = 1; i < tam; i++) {
 
@@ -116,12 +136,14 @@ void ordena_aluno_id(FILE *arq, int tam) {
         int posmenor = i + 1;
         for (int j = i + 2; j <= tam; j++) {
             Aluno *aj = le(arq);
+            count++;
             if ((aj->id) < (menor->id)) {
                 menor = aj;
                 posmenor = j;
             }
         }
 
+        count++;
         if (menor->id < ai->id) {
 
             fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
@@ -131,6 +153,11 @@ void ordena_aluno_id(FILE *arq, int tam) {
         }
     }
 
+    clock_t end = clock();
+    double time = double(end - start)/CLOCKS_PER_SEC;
+    std::cout << "Tempo gasto para ordenar os arquivos por id: " << time << std::endl;
+    std::cout << "Numero total de comparacoes ao ordenar por id: " << count << std::endl;
+
     fflush(arq);
 }
 
@@ -138,7 +165,8 @@ void ordena_aluno_id(FILE *arq, int tam) {
 void ordena_aluno_nome(FILE *arq, int tam) {
 
     rewind(arq);
-
+    long int count = 0;
+    clock_t start = clock();
     for (int i = 1; i < tam; i++) {
 
         fseek(arq, (i - 1) * tamanho(), SEEK_SET);
@@ -148,12 +176,14 @@ void ordena_aluno_nome(FILE *arq, int tam) {
         int posmenor = i + 1;
         for (int j = i + 2; j <= tam; j++) {
             Aluno *aj = le(arq);
+            count++;
             if (std::strcmp(aj->nome,menor->nome) < 0) {
                 menor = aj;
                 posmenor = j;
             }
-        }
 
+        }
+        count++;
         if (std::strcmp(menor->nome,ai->nome) < 0 ) {
 
             fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
@@ -162,6 +192,11 @@ void ordena_aluno_nome(FILE *arq, int tam) {
             salva(menor, arq);
         }
     }
+
+    clock_t end = clock();
+    double time = double(end - start)/CLOCKS_PER_SEC;
+    std::cout << "Tempo gasto para ordenar os arquivos por nome: " << time << std::endl;
+    std::cout << "Numero total de comparacoes ao ordenar por nome: " << count << std::endl;
 
     fflush(arq);
 }

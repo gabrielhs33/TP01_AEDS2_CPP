@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Menu.h"
-#include "../random/Random.h"
+#include "../entities/random/Random.h"
 
 void Menu::application() {
 
@@ -23,7 +23,7 @@ void Menu::application() {
             std::cout << "(2) Imprimir todos os alunos" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
-            std::cout<<"(5) Ordenar alunos em ordem alfabetica"<<std::endl;
+            std::cout << "(5) Ordenar alunos em ordem alfabetica"<<std::endl;
 
             std::cin>>op;
 
