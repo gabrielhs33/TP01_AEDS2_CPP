@@ -49,9 +49,9 @@ const char* Random::cria_matricula_aleatoria() {
     int decimal = intervalo_decimal(rand);
 
     std::string ano_str = ( ano< 10) ? "0" + std::to_string(ano) : std::to_string(ano);
-    std::string mes_str = (mes < 10) ? "0" + std::to_string(mes) : std::to_string(mes);
 
-    std::string matricula = std::to_string(ano) + "." + mes_str + "." + std::to_string(decimal);
+
+    std::string matricula = std::to_string(ano) + "." + std::to_string(mes) + "." + std::to_string(decimal);
 
     static char matricula_aleatoria[10];
 

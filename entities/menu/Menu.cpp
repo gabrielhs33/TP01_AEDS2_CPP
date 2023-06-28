@@ -4,7 +4,7 @@
 
 #include <iostream>
 #include "Menu.h"
-#include "../entities/random/Random.h"
+#include "../random/Random.h"
 
 void Menu::application() {
 

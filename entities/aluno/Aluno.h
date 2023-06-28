@@ -11,7 +11,6 @@
 class Aluno {
 
     public:
-
         int id;
         char nome[50];
         char matricula[10];

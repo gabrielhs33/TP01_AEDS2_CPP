@@ -6,7 +6,7 @@
 #define TP01_AEDS2_CPP_MENU_H
 
 
-#include "../entities/aluno/Aluno.h"
+#include "../aluno/Aluno.h"
 
 class Menu {
 

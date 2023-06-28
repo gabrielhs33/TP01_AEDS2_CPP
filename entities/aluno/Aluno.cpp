@@ -70,6 +70,7 @@ Aluno *le(FILE *in) {
 // Retorna tamanho do aluno em bytes
 int tamanho() {
     return sizeof(int)  //cod
+           + sizeof(char) * 1 // #
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 11 //data_nascimento
