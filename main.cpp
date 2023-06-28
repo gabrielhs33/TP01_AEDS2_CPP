@@ -1,5 +1,5 @@
 #include <iostream>
-#include "entities/menu/Menu.h"
+#include "menu/Menu.h"
 
 
 int main() {
