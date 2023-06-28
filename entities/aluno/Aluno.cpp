@@ -197,7 +197,7 @@ void ordena_aluno_nome(FILE *arq, int tam) {
     clock_t end = clock();
     double time = double(end - start)/CLOCKS_PER_SEC;
     std::cout << "Tempo gasto para ordenar os arquivos por nome: " << time << std::endl;
-    std::cout << "Numero total de comparacoes ao ordenar por nome: " << count << std::endl;
+    std::cout << "Numero total de comparacoes ao ordenar por nome do aluno: " << count << std::endl;
 
     fflush(arq);
 }
