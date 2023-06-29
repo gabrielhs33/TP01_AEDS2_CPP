@@ -67,10 +67,11 @@ int tamanho() {
 
 Aluno* busca_id(int id, FILE *arq,int tam) {
 
-    clock_t inicio, fim;
+
     int count = 0;
     int left = 0, right = tam - 1;
-    inicio = clock();
+
+    clock_t start = clock();
     while(left <= right)
     {
 
@@ -85,8 +86,8 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
 
             count++;
             if(id == aluno->id) {
-                fim = clock();
-                double time = double(fim - inicio)/CLOCKS_PER_SEC;
+                clock_t end = clock();
+                double time = double(start - end)/CLOCKS_PER_SEC;
                 std::cout << "Tempo gasto na busca por id: " << time << std::endl;
                 std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
                 return aluno;
@@ -102,8 +103,8 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
         }
 
     }
-    fim = clock();
-    double time = double(fim - inicio)/CLOCKS_PER_SEC;
+    clock_t end = clock();
+    double time = double(start - end)/CLOCKS_PER_SEC;
     std::cout << "Erro: aluno nao encontrado na base de dados. " <<  std::endl;
     std::cout << "Tempo gasto na busca por id: " << time << std::endl;
     std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;

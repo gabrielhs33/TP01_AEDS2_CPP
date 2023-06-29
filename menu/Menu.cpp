@@ -149,16 +149,22 @@ Aluno* cadastra_aluno(int cont){
         }
     }
 
-    void cria_base_dados(FILE *out){
-
-        for (int i=1; i<20; i++){
-
-            Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
-                              Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
-            salva_aluno(a,out);
-            free(a);
-        }
+void cria_base_dados(FILE *out) {
+    int ids_disponiveis[20];
+    for (int i = 1; i <= 20; i++) {
+        ids_disponiveis[i-1] = i;  // Preenche a lista de IDs disponíveis2
     }
+
+    for (int i = 0; i < 20; i++) {
+        int index = rand() % (20 - i);  // Gera um índice aleatório dentro do intervalo disponível
+        int id = ids_disponiveis[index];  // Seleciona o ID na posição aleatória
+        ids_disponiveis[index] = ids_disponiveis[19 - i];  // Substitui o ID selecionado pelo último ID disponível
+        Aluno *a = aluno(id, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
+                         Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
+        salva_aluno(a, out);
+        free(a);
+    }
+}
 
     int contar_registros(FILE* out) {
 
