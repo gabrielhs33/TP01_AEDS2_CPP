@@ -38,4 +38,6 @@ void ordena_aluno_nome(FILE *arq, int tam);
 
 void ordena_aluno_coeficiente(FILE *arq, int tam);
 
+Aluno* busca_sequencial(int id, FILE* file);
+
 #endif

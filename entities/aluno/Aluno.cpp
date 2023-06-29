@@ -220,6 +220,43 @@ void ordena_aluno_coeficiente(FILE *arq, int tam) {
             salva_aluno(menor, arq);
         }
     }
+
+    clock_t end = clock();
+    double time = double(end - start)/CLOCKS_PER_SEC;
+    std::cout << "Tempo gasto para ordenar os arquivos por coeficiente: " << time << std::endl;
+    std::cout << "Numero total de comparacoes ao ordenar por coeficientedo aluno: " << count << std::endl;
+
+    fflush(arq);
+}
+
+Aluno* busca_sequencial(int id, FILE* file) {
+
+    rewind(file);
+
+    auto* aluno = new Aluno();
+    int count = 0;
+
+    clock_t start = clock();
+    while (fread(aluno, tamanho(), 1, file) == 1) {
+        count++;
+        if (aluno->id == id) {
+
+            clock_t end = clock();
+            double time = double(end - start)/CLOCKS_PER_SEC;
+            std::cout << "Tempo gasto para ordenar os arquivos por busca sequencial: " << time << std::endl;
+            std::cout << "Numero total de comparacoes: " << count << std::endl;
+            return aluno;
+        }
+    }
+    delete aluno;
+    fflush(file);
+
+    clock_t end = clock();
+    double time = double(end - start)/CLOCKS_PER_SEC;
+    std::cout << "Tempo gasto para ordenar os arquivos por busca sequencial: " << time << std::endl;
+    std::cout << "Numero total de comparacoes: " << count << std::endl;
+
+    return nullptr;
 }
 
 
