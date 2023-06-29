@@ -1,7 +1,3 @@
-//
-// Created by Gabriel on 15/06/2023.
-//
-
 #include <iostream>
 #include <cstring>
 #include "Aluno.h"
@@ -34,8 +30,7 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out){
 
-    char character = '#';
-    fwrite(&character, sizeof(char), 1, out);
+
     fwrite(&aluno->id, sizeof(int), 1, out);
     //func->nome ao invés de &func->nome, pois string já é ponteiro
     fwrite(aluno->nome, sizeof(char), sizeof(aluno->nome), out);
@@ -49,22 +44,16 @@ void salva_aluno(Aluno *aluno, FILE *out){
 Aluno *le_aluno(FILE *in) {
 
     auto *aluno = new Aluno;
+    if (0 >= fread(&aluno->id, sizeof(int), 1, in)) {
 
-    int chacter = fgetc(in);
-    if(chacter == '#') {
-        if (0 >= fread(&aluno->id, sizeof(int), 1, in)) {
-
-            free(aluno);
-            return nullptr;
-        }
-        std::fread(aluno->nome, sizeof(char), sizeof(aluno->nome), in);
-        std::fread(aluno->matricula, sizeof(char), sizeof(aluno->matricula), in);
-        std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
-        std::fread(&aluno->coeficiente, sizeof(double), 1, in);
-    }
-    else{
+        free(aluno);
         return nullptr;
     }
+    std::fread(aluno->nome, sizeof(char), sizeof(aluno->nome), in);
+    std::fread(aluno->matricula, sizeof(char), sizeof(aluno->matricula), in);
+    std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
+    std::fread(&aluno->coeficiente, sizeof(double), 1, in);
+
     return aluno;
 }
 
@@ -74,8 +63,7 @@ int tamanho() {
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 13 //data_nascimento
-           + sizeof(double) //coeficiente
-           +sizeof(char)*1;//#
+           + sizeof(double); //coeficiente
 }
 
 Aluno* busca_id(int id, FILE *arq,int tam) {
@@ -184,7 +172,6 @@ void ordena_aluno_nome(FILE *arq, int tam) {
                 menor = aj;
                 posmenor = j;
             }
-
         }
         count++;
         if (std::strcmp(menor->nome,ai->nome) < 0 ) {

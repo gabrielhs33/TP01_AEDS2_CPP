@@ -1,7 +1,3 @@
-//
-// Created by Gabriel on 15/06/2023.
-//
-
 #ifndef TP01_AEDS2_CPP_ALUNO_H
 #define TP01_AEDS2_CPP_ALUNO_H
 

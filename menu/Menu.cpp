@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include "Menu.h"
 #include "../entities/random/Random.h"
@@ -32,7 +31,7 @@ void Menu::application() {
                     break;
                 case 2:
 
-                    le_professores(out);
+                    le_alunos(out);
                     break;
                 case 3:
 
@@ -68,61 +67,17 @@ void Menu::application() {
         std::cout<<"erro ao abrir o arquivo"<<std::endl;
     }
 }
-void ler_todos_registros(FILE *file) {
 
-    rewind(file);
 
-    while (true) {
-
-        int record_type = std::fgetc(file);
-
-        for(int i=0 ;i<20;i++){
-
-            record_type = std::fgetc(file);
-            std::cout<<record_type;
-        }
-        if (record_type == '#') {
-            Aluno* aluno = le_aluno(file);
-            if (aluno != nullptr) {
-                imprime(aluno);
-                delete aluno;
-            }
-        } else if (record_type == '$') {
-            Professor* professor = le_professor(file);
-            if (professor != nullptr) {
-
-                std::cout << "Registro de Professor: ID=" << professor->id << ", Nome=" << professor->nome << std::endl;
-
-                delete professor;
-            }
-        } else {
-            // Não foi encontrado um tipo de registro válido
-            break;
-        }
-    }
-}
-
-    void le_alunos(FILE *in) {
-
-        std::cout<< "\n\nLendo alunos do arquivo...\n\n"<<std::endl;
-        rewind(in);
-        Aluno *a;
-
-        while ((a = le_aluno(in)) != nullptr) {
-            imprime(a);
-            free(a);
-        }
-    }
-
-void le_professores(FILE *in) {
+void le_alunos(FILE *in) {
 
     std::cout<< "\n\nLendo alunos do arquivo...\n\n"<<std::endl;
     rewind(in);
-    Professor *p;
+    Aluno *a;
 
-    while ((p = le_professor(in)) != nullptr) {
-        imprime_professor(p);
-        free(p);
+    while ((a = le_aluno(in)) != nullptr) {
+        imprime(a);
+        free(a);
     }
 }
 
@@ -159,7 +114,6 @@ Aluno* cadastra_aluno(int cont){
         free(a);
 
 
-
         std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
         fseek(in, tamanho() * tam, SEEK_SET);
         Aluno *a6 = le_aluno(in);
@@ -171,26 +125,12 @@ Aluno* cadastra_aluno(int cont){
 
     void cria_base_dados(FILE *out){
 
-        /*int valor;
-        valor = std::rand()%2 +1 ;*/
-
         for (int i=1; i<20; i++){
 
-
-           /* if ( valor == 1){
-
-                Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
-                                  Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
-                salva_aluno(a,out);
-                free(a);
-            }else{*/
-
-                Professor *p = professor(i, Random::cria_nome_aleatorio(), Random::cria_telefone_aleatorio(),
-                                         Random::cria_cpf_aleatorio(),Random::cria_salario_aleatorio());
-                salva_professor(p,out);
-                free(p);
-            //}
-
+            Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
+                              Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
+            salva_aluno(a,out);
+            free(a);
         }
     }
 
