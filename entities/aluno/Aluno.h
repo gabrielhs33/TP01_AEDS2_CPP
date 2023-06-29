@@ -27,13 +27,14 @@ void salva_aluno(Aluno *aluno, FILE *out);
 // Retorna um ponteiro para aluno lido do arquivo
 Aluno *le_aluno(FILE *in);
 
-//// Retorna tamanho do aluno em bytes
+// Retorna tamanho do aluno em bytes
 int tamanho();
-
+// Busca no arquivo um aluno com  o id passado como parametro
+// Retorna um ponteiro para aluno lido do arquivo
 Aluno* busca_id(int id, FILE *arq, int tam);
-
+//ordena os alunos no arquivo em ordem crescente pelo id
 void ordena_aluno_id(FILE *arq, int tam);
-
+//ordena os alunos no arquivo em ordem alfabetica pelo nome
 void ordena_aluno_nome(FILE *arq, int tam);
 
 

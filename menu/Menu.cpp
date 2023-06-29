@@ -125,7 +125,7 @@ Aluno* cadastra_aluno(int cont){
 
     void cria_base_dados(FILE *out){
 
-        for (int i=1; i<20; i++){
+        for (int i=1; i<5000; i++){
 
             Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
                               Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
@@ -142,7 +142,9 @@ Aluno* cadastra_aluno(int cont){
         }
 
         std::fseek(out, 0, SEEK_END);
+        //conta o tamanho total do arquivo
         long tamanho_arquivo = std::ftell(out);
+        //reposiciona o cursor no inicio do arquivo
         std::rewind(out);
 
         int tamanho_registro = tamanho();

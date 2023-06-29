@@ -30,7 +30,6 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out){
 
-
     fwrite(&aluno->id, sizeof(int), 1, out);
     //func->nome ao invés de &func->nome, pois string já é ponteiro
     fwrite(aluno->nome, sizeof(char), sizeof(aluno->nome), out);
