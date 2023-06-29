@@ -1,7 +1,6 @@
 #ifndef TP01_AEDS2_CPP_ALUNO_H
 #define TP01_AEDS2_CPP_ALUNO_H
 
-
 #include <string>
 
 class Aluno {
@@ -37,5 +36,6 @@ void ordena_aluno_id(FILE *arq, int tam);
 //ordena os alunos no arquivo em ordem alfabetica pelo nome
 void ordena_aluno_nome(FILE *arq, int tam);
 
+void ordena_aluno_coeficiente(FILE *arq, int tam);
 
 #endif

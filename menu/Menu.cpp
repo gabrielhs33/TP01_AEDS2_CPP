@@ -24,6 +24,7 @@ void Menu::application() {
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
             std::cout << "(5) Ordenar alunos em ordem alfabetica"<<std::endl;
+            std::cout << "(6) Ordenar alunos por coeficiente"<<std::endl;
             std::cout << "(-1) Finaliza a aplicacao"<<std::endl;
 
             try {
@@ -80,6 +81,10 @@ void Menu::application() {
                         std::cout<<"alunos ordenados pelo nome"<<std::endl;
                         break;
 
+                    case 6:
+
+                        ordena_aluno_coeficiente(out, contar_registros(out));
+                        break;
                     case -1:
 
                         break;
@@ -169,7 +174,7 @@ void cria_base_dados(FILE *out) {
         free(a);
     }*/
 
-    int qtd = 200;
+    long int qtd = 500;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i < qtd; i++) {

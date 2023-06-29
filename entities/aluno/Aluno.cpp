@@ -88,7 +88,7 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
             if(id == aluno->id) {
 
                 clock_t end = clock();
-                double time = double(end - start)/CLOCKS_PER_SEC;
+                long double time = (double(end - start))/CLOCKS_PER_SEC;
                 std::cout << "Tempo gasto na busca por id: " << time << std::endl;
                 std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
                 return aluno;
@@ -105,8 +105,8 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
     }
 
     clock_t end = clock();
-    double time = double(end - start)/CLOCKS_PER_SEC;
-    std::cout << "Tempo gasto na busca por id: " << time << std::endl;
+    long double time = (double(end - start))/CLOCKS_PER_SEC;
+    std::cout << "Tempo gasto para realizat busca por id: " << time << std::endl;
     std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
     return nullptr;
 }
@@ -189,5 +189,38 @@ void ordena_aluno_nome(FILE *arq, int tam) {
 
     fflush(arq);
 }
+
+void ordena_aluno_coeficiente(FILE *arq, int tam) {
+
+    long int count = 0;
+    clock_t start = clock();
+
+    for (int i = 1; i < tam; i++) {
+
+        fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+        Aluno *ai = le_aluno(arq);
+        fseek(arq, i * tamanho(), SEEK_SET);
+        Aluno *menor = le_aluno(arq);
+        int posmenor = i + 1;
+        for (int j = i + 2; j <= tam; j++) {
+            Aluno *aj = le_aluno(arq);
+            count++;
+            if ((aj->coeficiente) < (menor->coeficiente)) {
+                menor = aj;
+                posmenor = j;
+            }
+        }
+
+        count++;
+        if (menor->coeficiente < ai->coeficiente) {
+
+            fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
+            salva_aluno(ai, arq);
+            fseek(arq, (i - 1) * tamanho(), SEEK_SET);
+            salva_aluno(menor, arq);
+        }
+    }
+}
+
 
 
