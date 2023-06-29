@@ -17,6 +17,8 @@ public:
 
 void le_alunos(FILE *in);
 
+void le_professores(FILE *in);
+
 void adiciona_aluno(FILE *in);
 
 int contar_registros(FILE *out);

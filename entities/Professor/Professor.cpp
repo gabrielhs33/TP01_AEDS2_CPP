@@ -9,6 +9,7 @@ void imprime_professor(Professor *professor){
     std::cout<<"Nome: "<<professor->nome<<std::endl;
     std::cout<<"telefone: "<<professor->telefone<<std::endl;
     std::cout<<"CPF:"<<professor->cpf<<std::endl;
+    std::cout<<"salario:"<<professor->salario<<std::endl;
     std::cout<<"**********************************************"<<std::endl;
 }
 
@@ -39,6 +40,7 @@ void salva_professor (Professor *professor, FILE *out){
 // Le um professor do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para professor lido do arquivo
 Professor *le_professor(FILE *in){
+
     auto *professor = new Professor;
 
     int chacter = fgetc(in);

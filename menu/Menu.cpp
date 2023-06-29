@@ -32,7 +32,7 @@ void Menu::application() {
                     break;
                 case 2:
 
-                    ler_todos_registros(out);
+                    le_professores(out);
                     break;
                 case 3:
 
@@ -81,8 +81,6 @@ void ler_todos_registros(FILE *file) {
             record_type = std::fgetc(file);
             std::cout<<record_type;
         }
-
-        std::cout<<record_type;
         if (record_type == '#') {
             Aluno* aluno = le_aluno(file);
             if (aluno != nullptr) {
@@ -116,6 +114,18 @@ void ler_todos_registros(FILE *file) {
         }
     }
 
+void le_professores(FILE *in) {
+
+    std::cout<< "\n\nLendo alunos do arquivo...\n\n"<<std::endl;
+    rewind(in);
+    Professor *p;
+
+    while ((p = le_professor(in)) != nullptr) {
+        imprime_professor(p);
+        free(p);
+    }
+}
+
 Aluno* cadastra_aluno(int cont){
 
     char nome[50];
@@ -142,14 +152,12 @@ Aluno* cadastra_aluno(int cont){
 
         int tam = contar_registros(in);
 
-        //pula a quantidade de registros cadastrados para posicionar no início do final do arquivo
         fseek(in, tamanho() * tam, SEEK_SET);
         Aluno* a = cadastra_aluno(tam);
         imprime(a);
         salva_aluno(a, in);
         free(a);
-        //lê funcionário que acabou de ser gravado
-        //posiciona novamente o cursor no início desse registro
+
 
 
         std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
@@ -163,25 +171,25 @@ Aluno* cadastra_aluno(int cont){
 
     void cria_base_dados(FILE *out){
 
-        int valor=1;
-        valor = std::rand()%2 +1 ;
+        /*int valor;
+        valor = std::rand()%2 +1 ;*/
 
         for (int i=1; i<20; i++){
 
 
-            if ( valor == 1){
+           /* if ( valor == 1){
 
                 Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
                                   Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
                 salva_aluno(a,out);
                 free(a);
-            }else{
+            }else{*/
 
                 Professor *p = professor(i, Random::cria_nome_aleatorio(), Random::cria_telefone_aleatorio(),
                                          Random::cria_cpf_aleatorio(),Random::cria_salario_aleatorio());
                 salva_professor(p,out);
                 free(p);
-            }
+            //}
 
         }
     }

@@ -132,8 +132,10 @@ const char* Random::cria_telefone_aleatorio() {
     static char str[9]; // Array para armazenar a string gerada
 
     for (int i = 0; i < 8; i++) {
-        str[i] =(rand() % 10);
+        str[i] = '0' +(rand() % 10);
     }
+
+    str[8]='\0';
     return str;
 }
 

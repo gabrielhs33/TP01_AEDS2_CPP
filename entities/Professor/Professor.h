@@ -10,7 +10,7 @@ class Professor {
     public:
         int id;
         char nome[50];
-        char telefone[8];
+        char telefone[9];
         char cpf[15];
         double salario;
 };
