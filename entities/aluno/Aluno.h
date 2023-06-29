@@ -14,7 +14,7 @@ class Aluno {
         int id;
         char nome[50];
         char matricula[10];
-        char data_nascimento[11];
+        char data_nascimento[13];
         double coeficiente;
 };
 
@@ -25,11 +25,11 @@ void imprime(Aluno *aluno);
 Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente );
 
 //Salva aluno no arquivo
-void salva (Aluno *aluno, FILE *out);
+void salva_aluno(Aluno *aluno, FILE *out);
 
 // Le um aluno do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para aluno lido do arquivo
-Aluno *le(FILE *in);
+Aluno *le_aluno(FILE *in);
 
 //// Retorna tamanho do aluno em bytes
 int tamanho();
@@ -41,4 +41,4 @@ void ordena_aluno_id(FILE *arq, int tam);
 void ordena_aluno_nome(FILE *arq, int tam);
 
 
-#endif //TP01_AEDS2_CPP_ALUNO_H
+#endif

@@ -10,16 +10,16 @@ class Professor {
     public:
         int id;
         char nome[50];
-        char data_nascimento[11];
-        int telefone;
-        char CPF[15];
+        char telefone[8];
+        char cpf[15];
+        double salario;
 };
 
 //Imprimir os dados do professor
 void imprime_professor(Professor *professor);
 
 //Cria professor
-Professor *professor(int id, const char *nome, const char *data_nascimento, int telefone, const char *CPF);
+Professor *professor(int id, const char *nome, const char *telefone, const char *CPF, double salario);
 
 //Salva informações de professor
 void salva_professor (Professor *professor, FILE *out);

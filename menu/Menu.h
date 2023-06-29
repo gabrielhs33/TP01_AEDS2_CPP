@@ -6,7 +6,8 @@
 #define TP01_AEDS2_CPP_MENU_H
 
 
-#include "../aluno/Aluno.h"
+#include "../entities/aluno/Aluno.h"
+#include "../entities/Professor/Professor.h"
 
 class Menu {
 
@@ -21,5 +22,7 @@ void adiciona_aluno(FILE *in);
 int contar_registros(FILE *out);
 
 void cria_base_dados(FILE *out);
+
+void ler_todos_registros(FILE *out);
 
 #endif //TP01_AEDS2_CPP_MENU_H

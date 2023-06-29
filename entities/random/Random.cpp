@@ -95,3 +95,50 @@ double Random::cria_coeficiente_aleatorio() {
 
     return std::floor(coeficiente * 10) / 10;
 }
+
+const char* Random::cria_cpf_aleatorio() {
+    static char cpf[12]; // Array para armazenar o CPF gerado
+
+
+    for (int i = 0; i < 9; i++) {
+        cpf[i] = '0' + (rand() % 10);
+    }
+
+    int soma = 0;
+    for (int i = 0; i < 9; i++) {
+        soma += (cpf[i] - '0') * (10 - i);
+    }
+    int digito1 = 11 - (soma % 11);
+    if (digito1 >= 10) {
+        digito1 = 0;
+    }
+    cpf[9] = '0' + digito1;
+
+
+    soma = 0;
+    for (int i = 0; i < 10; i++) {
+        soma += (cpf[i] - '0') * (11 - i);
+    }
+    int digito2 = 11 - (soma % 11);
+    if (digito2 >= 10) {
+        digito2 = 0;
+    }
+    cpf[10] = '0' + digito2;
+
+    return cpf;
+}
+
+const char* Random::cria_telefone_aleatorio() {
+    static char str[9]; // Array para armazenar a string gerada
+
+    for (int i = 0; i < 8; i++) {
+        str[i] =(rand() % 10);
+    }
+    return str;
+}
+
+double  Random::cria_salario_aleatorio() {
+
+    double valor = (rand() / static_cast<double>(RAND_MAX)) * 3000 + 6000;
+    return valor;
+}

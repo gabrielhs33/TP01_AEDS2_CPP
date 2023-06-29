@@ -32,7 +32,8 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
 }
 
 //Salva aluno no arquivo
-void salva(Aluno *aluno, FILE *out){
+void salva_aluno(Aluno *aluno, FILE *out){
+
     char character = '#';
     fwrite(&character, sizeof(char), 1, out);
     fwrite(&aluno->id, sizeof(int), 1, out);
@@ -45,7 +46,7 @@ void salva(Aluno *aluno, FILE *out){
 
 // Le um aluno do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para aluno lido do arquivo
-Aluno *le(FILE *in) {
+Aluno *le_aluno(FILE *in) {
 
     auto *aluno = new Aluno;
 
@@ -70,11 +71,11 @@ Aluno *le(FILE *in) {
 // Retorna tamanho do aluno em bytes
 int tamanho() {
     return sizeof(int)  //cod
-           + sizeof(char) * 1 // #
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
-           + sizeof(char) * 11 //data_nascimento
-           + sizeof(double); //coeficiente
+           + sizeof(char) * 13 //data_nascimento
+           + sizeof(double) //coeficiente
+           +sizeof(char)*1;//#
 }
 
 Aluno* busca_id(int id, FILE *arq,int tam) {
@@ -85,10 +86,11 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
     inicio = clock();
     while(left <= right)
     {
+
         int middle = (left + right) / 2;
         fseek(arq, middle * tamanho(), SEEK_SET);
 
-        Aluno* aluno = le(arq);
+        Aluno* aluno = le_aluno(arq);
 
         if(aluno == nullptr){
             return nullptr;
@@ -131,12 +133,12 @@ void ordena_aluno_id(FILE *arq, int tam) {
     for (int i = 1; i < tam; i++) {
 
         fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-        Aluno *ai = le(arq);
+        Aluno *ai = le_aluno(arq);
         fseek(arq, i * tamanho(), SEEK_SET);
-        Aluno *menor = le(arq);
+        Aluno *menor = le_aluno(arq);
         int posmenor = i + 1;
         for (int j = i + 2; j <= tam; j++) {
-            Aluno *aj = le(arq);
+            Aluno *aj = le_aluno(arq);
             count++;
             if ((aj->id) < (menor->id)) {
                 menor = aj;
@@ -148,9 +150,9 @@ void ordena_aluno_id(FILE *arq, int tam) {
         if (menor->id < ai->id) {
 
             fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
-            salva(ai, arq);
+            salva_aluno(ai, arq);
             fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-            salva(menor, arq);
+            salva_aluno(menor, arq);
         }
     }
 
@@ -171,12 +173,12 @@ void ordena_aluno_nome(FILE *arq, int tam) {
     for (int i = 1; i < tam; i++) {
 
         fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-        Aluno *ai = le(arq);
+        Aluno *ai = le_aluno(arq);
         fseek(arq, i * tamanho(), SEEK_SET);
-        Aluno *menor = le(arq);
+        Aluno *menor = le_aluno(arq);
         int posmenor = i + 1;
         for (int j = i + 2; j <= tam; j++) {
-            Aluno *aj = le(arq);
+            Aluno *aj = le_aluno(arq);
             count++;
             if (std::strcmp(aj->nome,menor->nome) < 0) {
                 menor = aj;
@@ -188,9 +190,9 @@ void ordena_aluno_nome(FILE *arq, int tam) {
         if (std::strcmp(menor->nome,ai->nome) < 0 ) {
 
             fseek(arq, (posmenor - 1) * tamanho(), SEEK_SET);
-            salva(ai, arq);
+            salva_aluno(ai, arq);
             fseek(arq, (i - 1) * tamanho(), SEEK_SET);
-            salva(menor, arq);
+            salva_aluno(menor, arq);
         }
     }
 
