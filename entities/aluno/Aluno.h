@@ -29,7 +29,7 @@ Aluno *le_aluno(FILE *in);
 
 // Retorna tamanho do aluno em bytes
 int tamanho();
-// Busca no arquivo um aluno com  o id passado como parametro
+// Realiza busca binaria no arquivo ordenado
 // Retorna um ponteiro para aluno lido do arquivo
 Aluno* busca_id(int id, FILE *arq, int tam);
 //ordena os alunos no arquivo em ordem crescente pelo id

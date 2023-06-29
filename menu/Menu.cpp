@@ -1,10 +1,14 @@
 #include <iostream>
 #include "Menu.h"
 #include "../entities/random/Random.h"
+#include <stdexcept>
+#include <limits>
+
 
 void Menu::application() {
 
     int op = 0;
+
 
     FILE *out = std::fopen("aluno.dat", "w+b");
 
@@ -14,52 +18,74 @@ void Menu::application() {
 
         while( op != -1 ){
 
-            std::cout << "\nInforme a operacao que deseja realizar" << std::endl;
+            std::cout << "\nInforme a operacao que deseja realizar:" << std::endl;
             std::cout << "(1) Inserir aluno" << std::endl;
             std::cout << "(2) Imprimir todos os registros" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
             std::cout << "(5) Ordenar alunos em ordem alfabetica"<<std::endl;
+            std::cout << "(-1) Finaliza a aplicacao"<<std::endl;
 
-            std::cin>>op;
+            try {
 
-            switch (op){
+                std::cin >> op;
 
-                case 1:
+                if (std::cin.fail()) {
+                    throw std::invalid_argument("Entrada invalida. Digite apenas numeros inteiros");
+                }
 
-                    adiciona_aluno(out);
-                    break;
-                case 2:
+                // Verifica se não há caracteres extras após o número inteiro
+                char c;
+                if (std::cin.get(c) && !std::isspace(c)) {
+                    throw std::invalid_argument("Entrada invalida. Digite apenas numeros inteiros");
+                }
 
-                    le_alunos(out);
-                    break;
-                case 3:
+                switch (op){
 
-                    int x;
-                    std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
-                    std::cin>>x;
-                    imprime(busca_id(x,out, contar_registros(out)));
-                    break;
+                    case 1:
 
-                case 4:
+                        adiciona_aluno(out);
+                        break;
+                    case 2:
 
-                    ordena_aluno_id(out, contar_registros(out));
-                    std::cout<<"alunos ordenados pelo id"<<std::endl;
-                    break;
+                        le_alunos(out);
+                        break;
+                    case 3:
 
-                case 5:
+                        int x;
+                        std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
+                        std::cin>>x;
+                        imprime(busca_id(x,out, contar_registros(out)));
+                        break;
 
-                    ordena_aluno_nome(out, contar_registros(out));
-                    std::cout<<"alunos ordenados pelo nome"<<std::endl;
-                    break;
+                    case 4:
 
-                default:
+                        ordena_aluno_id(out, contar_registros(out));
+                        std::cout<<"alunos ordenados pelo id"<<std::endl;
+                        break;
 
-                    std::cout<<"informe um valor valido"<<std::endl;
-                    break;
+                    case 5:
+
+                        ordena_aluno_nome(out, contar_registros(out));
+                        std::cout<<"alunos ordenados pelo nome"<<std::endl;
+                        break;
+
+                    case -1:
+
+                        break;
+
+                    default:
+
+                        std::cout<<"Informe um valor valido"<<std::endl;
+                        break;
+                }
+            } catch (const std::invalid_argument& e) {
+
+                std::cerr << "\nErro: " << e.what() << std::endl;
+                std::cin.clear(); // Limpar o estado de erro
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Descartar entrada inválida
             }
         }
-
         std::fclose(out);
 
     }else{
@@ -125,7 +151,7 @@ Aluno* cadastra_aluno(int cont){
 
     void cria_base_dados(FILE *out){
 
-        for (int i=1; i<5000; i++){
+        for (int i=1; i<20; i++){
 
             Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
                               Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
