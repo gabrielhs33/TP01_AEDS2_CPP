@@ -1,5 +1,6 @@
 #include <iostream>
 #include <cstring>
+#include <chrono>
 #include "Aluno.h"
 
 //Imprime aluno
@@ -67,7 +68,6 @@ int tamanho() {
 
 Aluno* busca_id(int id, FILE *arq,int tam) {
 
-
     int count = 0;
     int left = 0, right = tam - 1;
 
@@ -86,8 +86,9 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
 
             count++;
             if(id == aluno->id) {
+
                 clock_t end = clock();
-                double time = double(start - end)/CLOCKS_PER_SEC;
+                double time = double(end - start)/CLOCKS_PER_SEC;
                 std::cout << "Tempo gasto na busca por id: " << time << std::endl;
                 std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
                 return aluno;
@@ -96,16 +97,15 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
                 left = middle + 1;
             }
             else {
-                right = middle - 1;
 
+                right = middle - 1;
             }
             count++;
         }
-
     }
+
     clock_t end = clock();
-    double time = double(start - end)/CLOCKS_PER_SEC;
-    std::cout << "Erro: aluno nao encontrado na base de dados. " <<  std::endl;
+    double time = double(end - start)/CLOCKS_PER_SEC;
     std::cout << "Tempo gasto na busca por id: " << time << std::endl;
     std::cout << "Numero total de comparacoes ao buscar por id: " << count << std::endl;
     return nullptr;
@@ -114,7 +114,6 @@ Aluno* busca_id(int id, FILE *arq,int tam) {
 //selection sort
 void ordena_aluno_id(FILE *arq, int tam) {
 
-    rewind(arq);
     long int count = 0;
     clock_t start = clock();
 
