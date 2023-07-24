@@ -19,5 +19,4 @@ int contar_registros(FILE *out);
 //cria uma base de dados aleatoria para exemplificação do programa
 void cria_base_dados(FILE *out);
 
-
 #endif //TP01_AEDS2_CPP_MENU_H

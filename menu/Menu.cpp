@@ -24,6 +24,8 @@ void Menu::application() {
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
             std::cout << "(5) Ordenar alunos em ordem alfabetica"<<std::endl;
+            std::cout << "(6) Ordenar alunos por coeficiente"<<std::endl;
+            std::cout << "(7) Realizar busca sequencial"<<std::endl;
             std::cout << "(-1) Finaliza a aplicacao"<<std::endl;
 
             try {
@@ -55,7 +57,16 @@ void Menu::application() {
                         int x;
                         std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                         std::cin>>x;
-                        imprime(busca_id(x,out, contar_registros(out)));
+
+                        Aluno* aluno;
+                        aluno = busca_id(x,out, contar_registros(out));
+                        if(aluno != nullptr){
+
+                            imprime(aluno);
+                        }else{
+
+                            std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
+                        }
                         break;
 
                     case 4:
@@ -70,6 +81,27 @@ void Menu::application() {
                         std::cout<<"alunos ordenados pelo nome"<<std::endl;
                         break;
 
+                    case 6:
+
+                        ordena_aluno_coeficiente(out, contar_registros(out));
+                        break;
+
+                    case 7:
+
+                        int y;
+                        std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
+                        std::cin>>x;
+
+                        Aluno* a2;
+                        a2= busca_sequencial(x,out);
+                        if(a2!= nullptr){
+
+                            imprime(a2);
+                        }else{
+
+                            std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
+                        }
+                        break;
                     case -1:
 
                         break;
@@ -148,16 +180,27 @@ Aluno* cadastra_aluno(int cont){
         }
     }
 
-    void cria_base_dados(FILE *out){
+void cria_base_dados(FILE *out) {
 
-        for (int i=1; i<20; i++){
+    long int qtd = 5000;
 
-            Aluno * a = aluno(i, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
-                              Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
-            salva_aluno(a,out);
-            free(a);
-        }
+    int ids_disponiveis[qtd - 1];
+    for (int i = 1; i < qtd; i++) {
+        ids_disponiveis[i - 1] = i;  // Preenche a lista de IDs disponíveis
     }
+
+    for (int i = 0; i < qtd; i++) {
+
+        int index = rand() % (qtd - i);  // Gera um índice aleatório dentro do intervalo disponível
+        int id = ids_disponiveis[index];  // Seleciona o ID na posição aleatória
+        ids_disponiveis[index] = ids_disponiveis[(qtd - 1) - i];
+        Aluno *a = aluno(id, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
+                         Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
+        salva_aluno(a, out);
+        free(a);
+    }
+}
+
 
     int contar_registros(FILE* out) {
 
