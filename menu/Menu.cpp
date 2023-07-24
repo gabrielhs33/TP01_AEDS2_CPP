@@ -118,7 +118,6 @@ Aluno* cadastra_aluno(int cont){
     std::cout << "Nome: " << std::endl;
     std::cin.getline(nome, 50);
     fflush(stdin);
-
     std::cout << "Matricula: " << std::endl;
     std::cin.getline(matricula, 10);
     std::cout << "Data de nascimento: " << std::endl;

@@ -1,7 +1,6 @@
 #ifndef TP01_AEDS2_CPP_ALUNO_H
 #define TP01_AEDS2_CPP_ALUNO_H
 
-
 #include <string>
 
 class Aluno {
