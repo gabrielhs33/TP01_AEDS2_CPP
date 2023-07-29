@@ -202,25 +202,7 @@ void cria_base_dados(FILE *out) {
 }
 
 
-    int contar_registros(FILE* out) {
 
-        if (out == nullptr) {
-            std::cerr << "Arquivo inválido." << std::endl;
-            return -1;
-        }
-
-        std::fseek(out, 0, SEEK_END);
-        //conta o tamanho total do arquivo
-        long tamanho_arquivo = std::ftell(out);
-        //reposiciona o cursor no inicio do arquivo
-        std::rewind(out);
-
-        int tamanho_registro = tamanho();
-
-        int total_registros = tamanho_arquivo / tamanho_registro;
-
-        return total_registros;
-    }
 
 
 

@@ -259,5 +259,86 @@ Aluno* busca_sequencial(int id, FILE* file) {
     return nullptr;
 }
 
+int contar_registros(FILE* out) {
+
+    if (out == nullptr) {
+        std::cerr << "Arquivo inválido." << std::endl;
+        return -1;
+    }
+
+    std::fseek(out, 0, SEEK_END);
+    //conta o tamanho total do arquivo
+    long tamanho_arquivo = std::ftell(out);
+    //reposiciona o cursor no inicio do arquivo
+    std::rewind(out);
+
+    int tamanho_registro = tamanho();
+
+    int total_registros = tamanho_arquivo / tamanho_registro;
+
+    return total_registros;
+}
+
+void selecao_por_substituicao(FILE* arq, int memoria) {
+    rewind(arq); // Posiciona cursor no início do arquivo
+
+    int nFunc = contar_registros(arq);
+    int qtdParticoes = 0;
+
+    auto** v = new Aluno*[memoria];
+    bool* congelado = new bool[nFunc];
+    int i = 0;
+
+    while (i < nFunc) {
+        // Leitura dos registros do arquivo original para a memória (limitado pelo tamanho da memória)
+        int j = 0;
+        while (!feof(arq) && j < memoria) {
+            v[j] = le_aluno(arq);
+            congelado[i + j] = false; // inicializa todos os registros como não congelados
+            j++;
+        }
+
+        // Encontrar o registro com a menor chave no array em memória
+        int min_idx = i;
+        for (int k = i + 1; k < i + j; k++) {
+            if (!congelado[k] && v[k - i]->id < v[min_idx - i]->id) {
+                min_idx = k;
+            }
+        }
+
+        // Gravar o registro r com menor chave na partição de saída
+        char nomeParticao[20];
+        sprintf(nomeParticao, "particao%d.dat", qtdParticoes);
+        FILE* p;
+        if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
+            std::cout << "Erro ao criar arquivo de saida\n";
+            break;
+        } else {
+            // Grava os registros ordenados no arquivo de saída
+            for (int k = i; k < i + j; k++) {
+                salva_aluno(v[k - i], p);
+                congelado[k] = true; // Congela o registro gravado na partição de saída
+            }
+            fclose(p);
+            qtdParticoes++;
+        }
+
+        // Libera a memória dos registros gravados na partição de saída
+        for (int k = i; k < i + j; k++) {
+            delete v[k - i];
+        }
+
+        // Procurar por mais registros não congelados em memória
+        while (i < nFunc && congelado[i]) {
+            i++;
+        }
+    }
+
+    // Libera a memória alocada para o array de ponteiros e o array de congelados
+    delete[] v;
+    delete[] congelado;
+}
+
+
 
 

@@ -22,6 +22,9 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out);
 
+//conta quantos registros foram inseridos no arquivo
+int contar_registros(FILE *out);
+
 // Le um aluno do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para aluno lido do arquivo
 Aluno *le_aluno(FILE *in);
@@ -39,5 +42,7 @@ void ordena_aluno_nome(FILE *arq, int tam);
 void ordena_aluno_coeficiente(FILE *arq, int tam);
 
 Aluno* busca_sequencial(int id, FILE* file);
+
+void selecao_por_substituicao(FILE* arq, int memoria);
 
 #endif
