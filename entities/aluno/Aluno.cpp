@@ -2,6 +2,7 @@
 #include <cstring>
 #include <chrono>
 #include "Aluno.h"
+#include "../pilha/Pilha.h"
 
 //Imprime aluno
 void imprime(Aluno *aluno){
@@ -229,6 +230,26 @@ void ordena_aluno_coeficiente(FILE *arq, int tam) {
     fflush(arq);
 }
 
+int contar_registros(FILE* out) {
+
+    if (out == nullptr) {
+        std::cerr << "Arquivo inválido." << std::endl;
+        return -1;
+    }
+
+    std::fseek(out, 0, SEEK_END);
+    //conta o tamanho total do arquivo
+    long tamanho_arquivo = std::ftell(out);
+    //reposiciona o cursor no inicio do arquivo
+    std::rewind(out);
+
+    int tamanho_registro = tamanho();
+
+    int total_registros = tamanho_arquivo / tamanho_registro;
+
+    return total_registros;
+}
+
 Aluno* busca_sequencial(int id, FILE* file) {
 
     rewind(file);
@@ -259,25 +280,6 @@ Aluno* busca_sequencial(int id, FILE* file) {
     return nullptr;
 }
 
-int contar_registros(FILE* out) {
-
-    if (out == nullptr) {
-        std::cerr << "Arquivo inválido." << std::endl;
-        return -1;
-    }
-
-    std::fseek(out, 0, SEEK_END);
-    //conta o tamanho total do arquivo
-    long tamanho_arquivo = std::ftell(out);
-    //reposiciona o cursor no inicio do arquivo
-    std::rewind(out);
-
-    int tamanho_registro = tamanho();
-
-    int total_registros = tamanho_arquivo / tamanho_registro;
-
-    return total_registros;
-}
 
 void selecao_por_substituicao(FILE* arq, int memoria) {
     rewind(arq); // Posiciona cursor no início do arquivo
@@ -338,6 +340,53 @@ void selecao_por_substituicao(FILE* arq, int memoria) {
     delete[] v;
     delete[] congelado;
 }
+
+void cria_pilha(TPilha *pilha, FILE *arq, int tam){
+    // Achar o menor indice e inserir todos na pilha
+    int j = 0;
+    while (!feof(arq) && j < tam){
+        Aluno *aluno2 = le_aluno(arq);
+        push(pilha, 6, &j, aluno2, j);
+    }
+}
+
+Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
+    int flag = 0;
+    for(int nmr = 0; nmr < 6; nmr++){
+        Aluno * aluno = pop(&pilha, 0, 5);
+    }
+    return *aluno_menor;
+}
+
+void ordena_itens(FILE *arq, int tam){
+    int qtdParticoes = 0;
+    int array[tam - 1];
+    int qtd_registros = contar_registros(arq);
+
+    TPilha *pilha;
+    pilha = (TPilha*)malloc(sizeof(TPilha));
+    inicializa(pilha, 6, 0);
+
+    while(int i= 0 <qtd_registros){
+        Aluno *menor;
+        menor = le_aluno(arq);
+
+        // Gravar o registro r com menor chave na partição de saída
+        char nomeParticao[int(qtd_registros/tam) + 1];
+        sprintf(nomeParticao, "particao%d.dat", qtdParticoes);
+        FILE* p;
+        if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
+            std::cout << "Erro ao criar arquivo de saida\n";
+            break;
+        }
+        else{
+            // Insere menor no arquivo p
+            salva_aluno(menor, p);
+
+        }
+    }
+}
+
 
 
 

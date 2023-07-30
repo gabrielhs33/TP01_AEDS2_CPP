@@ -1,5 +1,11 @@
 #include "Pilha.h"
 
+void inicializa(TPilha *pilha, int lim, int topo){
+
+    pilha->topo = topo;
+    pilha->limite = lim;
+}
+
 int pilha_cheia(int lim, int topo) {
 
     if (topo == lim)
@@ -9,13 +15,13 @@ int pilha_cheia(int lim, int topo) {
 }
 
 int pilha_vazia(int base, int topo) {
-    if (topo < base)
+    if (topo == 0)
         return 1; //pilha vazia
     else
         return 0; //pilha tem pelo menos 1 elemento
 }
 
-Aluno *push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
+void *push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
     if (pilha_cheia(lim, *topo)) {
         return nullptr;
     }
@@ -24,7 +30,6 @@ Aluno *push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
         *topo = *topo + 1;
         pilha[*topo].info = info;
         pilha[*topo].p = p;
-        return info;
     }
 }
 
@@ -83,7 +88,7 @@ void cria_pilha_particao(TPilha *pilha, FILE *arq, int nAluno, int *vetTopo){
             Aluno *aluno = le_aluno(arq);
             if(aluno){
 
-                push(pilha,lim,vetTopo,aluno,i);
+                push(pilha,lim,vetTopo,aluno, i);
                 i--;
             }else aux = 0;
         }while(aux);

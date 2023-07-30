@@ -102,6 +102,10 @@ void Menu::application() {
                             std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
                         }
                         break;
+                    case 8:
+                        selecao_por_substituicao(out, 6);
+                        le_alunos(out);
+                        break;
                     case -1:
 
                         break;
@@ -182,7 +186,7 @@ Aluno* cadastra_aluno(int cont){
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 5000;
+    long int qtd = 36;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i < qtd; i++) {
@@ -200,7 +204,6 @@ void cria_base_dados(FILE *out) {
         free(a);
     }
 }
-
 
 
 

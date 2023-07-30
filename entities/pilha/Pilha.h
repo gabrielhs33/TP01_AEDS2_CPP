@@ -4,20 +4,21 @@
 #include "../aluno/Aluno.h"
 
 typedef struct pilha {
-
+    int limite;
+    int topo;
     Aluno *info;
     int p;
 } TPilha;
 
 /*inicializa a pilha*/
-void inicializa(int *base, int *lim, int *topo);
+void inicializa(TPilha *pilha, int lim, int topo);
 
 /*verifica se a pilha esta cheia a vazia*/
 int pilha_cheia(int lim, int topo);
 int pilha_vazia(int base, int topo);
 
 /*Insere e remove elemento do topo da pilha, Insere info no topo da pilha, retorna -1 caso não consiga inserir ou remover na pilha, caso contrário retorna o Aluno*/
-Aluno *push(TPilha *pilha, int lim, int *topo,Aluno* info, int p);
+void *push(TPilha *pilha, int lim, int *topo,Aluno* info, int p);
 Aluno *pop(TPilha *pilha, int base, int *topo);
 
 /*consulta e retorna um elemento funcionario da pilha e o id "p" referente à partição, retorna -1 caso pilha esteja vazia*/
@@ -29,5 +30,6 @@ void imprime_pilha(TPilha *pilha, const int *topo);
 
 /*cria uma pilha de nFunc alunos lidos de um arquivo*/
 void cria_pilha_particao(TPilha *pilha, FILE *arq, int nFunc, const int *vetTopo);
+
 
 #endif //TP01_AEDS2_CPP_PILHA_H

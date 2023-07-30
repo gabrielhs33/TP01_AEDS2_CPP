@@ -45,4 +45,7 @@ Aluno* busca_sequencial(int id, FILE* file);
 
 void selecao_por_substituicao(FILE* arq, int memoria);
 
+void ordenada_itens(FILE *arq, int tam);
+
+
 #endif
