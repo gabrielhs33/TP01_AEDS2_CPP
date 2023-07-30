@@ -50,6 +50,8 @@ void cria_pilha(TPilha *pilha, FILE *arq, int tam);
 
 Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
 
-void ordena_itens(FILE *arq, int tam);
+void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados);
+
+void ordena_substituicao(FILE *arq, int tam);
 
 #endif

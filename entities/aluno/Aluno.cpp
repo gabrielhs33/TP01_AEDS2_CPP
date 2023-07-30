@@ -397,7 +397,7 @@ void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados)
     }
 }
 
-void ordena_itens(FILE *arq, int tam){
+void ordena_substituicao(FILE *arq, int tam){
     int qtdParticoes = 0;
     int qtd_registros = contar_registros(arq);
     int array[tam];
