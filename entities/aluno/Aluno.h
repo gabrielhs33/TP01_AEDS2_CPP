@@ -2,6 +2,7 @@
 #define TP01_AEDS2_CPP_ALUNO_H
 
 #include <string>
+#include "../pilha/Pilha.h"
 
 class Aluno {
 
@@ -45,7 +46,10 @@ Aluno* busca_sequencial(int id, FILE* file);
 
 void selecao_por_substituicao(FILE* arq, int memoria);
 
-void ordenada_itens(FILE *arq, int tam);
+void cria_pilha(TPilha *pilha, FILE *arq, int tam);
 
+Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
+
+void ordena_itens(FILE *arq, int tam);
 
 #endif

@@ -1,7 +1,7 @@
+#include <iostream>
 #include "Pilha.h"
 
 void inicializa(TPilha *pilha, int lim, int topo){
-
     pilha->topo = topo;
     pilha->limite = lim;
 }
@@ -21,9 +21,9 @@ int pilha_vazia(int base, int topo) {
         return 0; //pilha tem pelo menos 1 elemento
 }
 
-void *push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
+void push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
     if (pilha_cheia(lim, *topo)) {
-        return nullptr;
+        std::cout<< "\n\nPilha Cheia\n\n"<<std::endl;
     }
     else {
         //faz a inserção

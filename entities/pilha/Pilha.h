@@ -18,7 +18,7 @@ int pilha_cheia(int lim, int topo);
 int pilha_vazia(int base, int topo);
 
 /*Insere e remove elemento do topo da pilha, Insere info no topo da pilha, retorna -1 caso não consiga inserir ou remover na pilha, caso contrário retorna o Aluno*/
-void *push(TPilha *pilha, int lim, int *topo,Aluno* info, int p);
+void push(TPilha *pilha, int lim, int *topo, Aluno* info, int p);
 Aluno *pop(TPilha *pilha, int base, int *topo);
 
 /*consulta e retorna um elemento funcionario da pilha e o id "p" referente à partição, retorna -1 caso pilha esteja vazia*/

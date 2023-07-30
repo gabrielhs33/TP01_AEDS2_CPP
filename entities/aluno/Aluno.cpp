@@ -345,31 +345,72 @@ void cria_pilha(TPilha *pilha, FILE *arq, int tam){
     // Achar o menor indice e inserir todos na pilha
     int j = 0;
     while (!feof(arq) && j < tam){
-        Aluno *aluno2 = le_aluno(arq);
-        push(pilha, 6, &j, aluno2, j);
+        pilha->info = le_aluno(arq);
+        push(pilha, pilha->limite, &j, pilha->info, j);
     }
 }
 
 Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
     int flag = 0;
     for(int nmr = 0; nmr < 6; nmr++){
-        Aluno * aluno = pop(&pilha, 0, 5);
+
+        Aluno * aluno = pop(&pilha, 0, &pilha.topo);
+        if(array_congelados[aluno->id] == 1) {
+            flag = 1;
+        }
+        if (flag == 0 && aluno_menor->id > aluno->id) {
+            aluno_menor = aluno;
+        }
     }
     return *aluno_menor;
 }
 
+void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados){
+    TPilha *pilha2;
+    pilha2 = (TPilha*)malloc(sizeof(TPilha));
+    TPilha * aux2;
+    aux2 = (TPilha*)malloc(sizeof(TPilha));
+    TPilha * aux3;
+    aux3 = (TPilha*)malloc(sizeof(TPilha));
+    Aluno *a3;
+
+    inicializa(pilha2, 6, 0);
+    for (int i = 0; i < 6; i++){
+        aux2->info = pop(pilha, 0, pilha->topo;
+        if(aux2->info != r){
+            aux2->info = pop(pilha, 0, pilha->topo);
+            push(pilha2, pilha2->limite, &i, aux2->info, i);
+        }else {
+            *p = *p + 1;
+            aux2->info = pop(pilha, 0, pilha->topo);
+            aux3->info = le_aluno(arq);
+            a3 = aux3->info;
+            push(pilha2, pilha2->limite, &i, aux3->info, i);
+            if(a3->id < r.id){
+                array_congelados[a3->id] = 1;
+            }
+        }
+    }
+    for(int b = 0; b < 6; b++){
+        aux2->info = pop(pilha2, 0, pilha2->topo);
+        push(pilha, pilha->limite, &b, aux2->info, b);
+    }
+}
+
 void ordena_itens(FILE *arq, int tam){
     int qtdParticoes = 0;
-    int array[tam - 1];
     int qtd_registros = contar_registros(arq);
-
+    int array[tam];
+    int i = 0;
     TPilha *pilha;
     pilha = (TPilha*)malloc(sizeof(TPilha));
     inicializa(pilha, 6, 0);
 
-    while(int i= 0 <qtd_registros){
-        Aluno *menor;
-        menor = le_aluno(arq);
+    while(i < qtd_registros){
+
+        Aluno * menor_id;
+        cria_pilha(pilha, arq, 6);
+        menor_id = menor_da_pilha(*pilha, pilha->info, array);
 
         // Gravar o registro r com menor chave na partição de saída
         char nomeParticao[int(qtd_registros/tam) + 1];
@@ -381,9 +422,10 @@ void ordena_itens(FILE *arq, int tam){
         }
         else{
             // Insere menor no arquivo p
-            salva_aluno(menor, p);
-
+            salva_aluno(menor_id, p);
+            substitui(pilha, *menor_id, &i, arq, &i);
         }
+        for()
     }
 }
 
