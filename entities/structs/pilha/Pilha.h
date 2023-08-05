@@ -6,7 +6,7 @@
 typedef struct pilha {
     int limite;
     int topo;
-    Aluno *info;
+    Aluno * info;
     int p;
 } TPilha;
 

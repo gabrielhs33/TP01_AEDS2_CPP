@@ -44,14 +44,14 @@ void ordena_aluno_coeficiente(FILE *arq, int tam);
 
 Aluno* busca_sequencial(int id, FILE* file);
 
-void selecao_por_substituicao(FILE* arq, int memoria);
-
 void cria_pilha(TPilha *pilha, FILE *arq, int tam);
 
 Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
 
+bool verifica_congelamento(TPilha pilha, int *array_congelados);
+
 void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados);
 
-void ordena_substituicao(FILE *arq, int tam);
+void ordena_por_substituicao(FILE *arq, int tam);
 
 #endif

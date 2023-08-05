@@ -281,65 +281,6 @@ Aluno* busca_sequencial(int id, FILE* file) {
 }
 
 
-void selecao_por_substituicao(FILE* arq, int memoria) {
-    rewind(arq); // Posiciona cursor no início do arquivo
-
-    int nFunc = contar_registros(arq);
-    int qtdParticoes = 0;
-
-    auto** v = new Aluno*[memoria];
-    bool* congelado = new bool[nFunc];
-    int i = 0;
-
-    while (i < nFunc) {
-        // Leitura dos registros do arquivo original para a memória (limitado pelo tamanho da memória)
-        int j = 0;
-        while (!feof(arq) && j < memoria) {
-            v[j] = le_aluno(arq);
-            congelado[i + j] = false; // inicializa todos os registros como não congelados
-            j++;
-        }
-
-        // Encontrar o registro com a menor chave no array em memória
-        int min_idx = i;
-        for (int k = i + 1; k < i + j; k++) {
-            if (!congelado[k] && v[k - i]->id < v[min_idx - i]->id) {
-                min_idx = k;
-            }
-        }
-
-        // Gravar o registro r com menor chave na partição de saída
-        char nomeParticao[20];
-        sprintf(nomeParticao, "particao%d.dat", qtdParticoes);
-        FILE* p;
-        if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
-            std::cout << "Erro ao criar arquivo de saida\n";
-            break;
-        } else {
-            // Grava os registros ordenados no arquivo de saída
-            for (int k = i; k < i + j; k++) {
-                salva_aluno(v[k - i], p);
-                congelado[k] = true; // Congela o registro gravado na partição de saída
-            }
-            fclose(p);
-            qtdParticoes++;
-        }
-
-        // Libera a memória dos registros gravados na partição de saída
-        for (int k = i; k < i + j; k++) {
-            delete v[k - i];
-        }
-
-        // Procurar por mais registros não congelados em memória
-        while (i < nFunc && congelado[i]) {
-            i++;
-        }
-    }
-
-    // Libera a memória alocada para o array de ponteiros e o array de congelados
-    delete[] v;
-    delete[] congelado;
-}
 
 void cria_pilha(TPilha *pilha, FILE *arq, int tam){
     // Achar o menor indice e inserir todos na pilha
@@ -350,7 +291,7 @@ void cria_pilha(TPilha *pilha, FILE *arq, int tam){
     }
 }
 
-Aluno* menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
+Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
     int flag = 0;
     for(int nmr = 0; nmr < 6; nmr++){
 
@@ -363,6 +304,23 @@ Aluno* menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
         }
     }
     return aluno_menor;
+}
+
+bool verifica_congelamento(TPilha pilha, int *array_congelados){
+    Aluno *aux;
+    int flag;
+    for(int a =0; a < 6; a++) {
+        flag = 1;
+        aux = pop(&pilha, 0, pilha.topo);
+        if (array_congelados[aux->id] == 0) {
+            flag = 0;
+        }
+        if (flag == 0){
+            return false;
+        }
+    }
+    free(aux);
+    return true;
 }
 
 void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados){
@@ -395,9 +353,13 @@ void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados)
         aux2->info = pop(pilha2, 0, pilha2->topo);
         push(pilha, pilha->limite, &b, aux2->info, b);
     }
+    free(pilha2);
+    free(aux2);
+    free(aux3);
+    free(a3);
 }
 
-void ordena_substituicao(FILE *arq, int tam){
+void ordena_por_substituicao(FILE *arq, int tam){
     int qtdParticoes = 0;
     int qtd_registros = contar_registros(arq);
     int array[tam];
@@ -405,29 +367,54 @@ void ordena_substituicao(FILE *arq, int tam){
     TPilha *pilha;
     pilha = (TPilha*)malloc(sizeof(TPilha));
     inicializa(pilha, 6, 0);
+    cria_pilha(pilha, arq, 6);
+    Aluno * menor_id;
+
+    char nomeParticao[int(qtd_registros/tam) + 1];
+    sprintf(nomeParticao, "TP01_AEDS2_CPP/files/particao%d.dat", qtdParticoes);
+    FILE* p;
+    if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
+        std::cout << "Erro ao criar arquivo de saida\n";
+        return;
+    }
 
     while(i < qtd_registros){
-
-        Aluno * menor_id;
-        cria_pilha(pilha, arq, 6);
+        //acha o menor da pilha
         menor_id = menor_da_pilha(*pilha, pilha->info, array);
 
         // Gravar o registro r com menor chave na partição de saída
-        char nomeParticao[int(qtd_registros/tam) + 1];
-        sprintf(nomeParticao, "particao%d.dat", qtdParticoes);
-        FILE* p;
-        if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
-            std::cout << "Erro ao criar arquivo de saida\n";
-            break;
+        salva_aluno(menor_id, p);
+
+        // Insere menor no arquivo p
+        substitui(pilha, *menor_id, &i, arq, &i);
+
+        // Caso 7
+        if(verifica_congelamento(*pilha, array)){
+            fclose(p);
+            qtdParticoes ++;
+            sprintf(nomeParticao, "TP01_AEDS2_CPP/files/particao%d.dat", qtdParticoes);
+            if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
+                std::cout << "Erro ao criar arquivo de saida\n";
+            }
+            std::fill(array, array + tam, 0);
         }
-        else{
-            // Insere menor no arquivo p
-            salva_aluno(menor_id, p);
-            substitui(pilha, *menor_id, &i, arq, &i);
-        }
-        //for()
     }
+
+    FILE* arquivo = fopen("TP01_AEDS2_CPP/files/particao1.dat", "rb"); // Abrir o arquivo no modo de leitura binária
+    if (arquivo == nullptr) {
+        perror("Erro ao abrir o arquivo");
+    }
+    int valor;
+    while (fread(&valor, sizeof(valor), 1, arquivo) == 1) {
+        // Aqui você pode processar os dados conforme necessário
+        printf("%d ", valor);
+    }
+    fclose(arquivo);
+
+    free(menor_id);
+    free(pilha);
 }
+
 
 
 

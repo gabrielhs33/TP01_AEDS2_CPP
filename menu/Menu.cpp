@@ -103,8 +103,8 @@ void Menu::application() {
                         }
                         break;
                     case 8:
-                        selecao_por_substituicao(out, 6);
-                        le_alunos(out);
+                        ordena_por_substituicao(out, 6);
+                        FILE *a;
                         break;
                     case -1:
 
