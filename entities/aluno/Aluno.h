@@ -2,7 +2,7 @@
 #define TP01_AEDS2_CPP_ALUNO_H
 
 #include <string>
-#include "../pilha/Pilha.h"
+#include "../structs/pilha/Pilha.h"
 
 class Aluno {
 
@@ -48,7 +48,7 @@ void selecao_por_substituicao(FILE* arq, int memoria);
 
 void cria_pilha(TPilha *pilha, FILE *arq, int tam);
 
-Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
+Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
 
 void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados);
 

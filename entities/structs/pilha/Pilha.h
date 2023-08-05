@@ -1,7 +1,7 @@
 #ifndef TP01_AEDS2_CPP_PILHA_H
 #define TP01_AEDS2_CPP_PILHA_H
 
-#include "../aluno/Aluno.h"
+#include "../../aluno/Aluno.h"
 
 typedef struct pilha {
     int limite;

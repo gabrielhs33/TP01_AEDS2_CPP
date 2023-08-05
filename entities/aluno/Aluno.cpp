@@ -2,7 +2,7 @@
 #include <cstring>
 #include <chrono>
 #include "Aluno.h"
-#include "../pilha/Pilha.h"
+#include "../structs/pilha/Pilha.h"
 
 //Imprime aluno
 void imprime(Aluno *aluno){
@@ -350,7 +350,7 @@ void cria_pilha(TPilha *pilha, FILE *arq, int tam){
     }
 }
 
-Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
+Aluno* menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
     int flag = 0;
     for(int nmr = 0; nmr < 6; nmr++){
 
@@ -362,7 +362,7 @@ Aluno menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
             aluno_menor = aluno;
         }
     }
-    return *aluno_menor;
+    return aluno_menor;
 }
 
 void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados){
@@ -425,10 +425,9 @@ void ordena_substituicao(FILE *arq, int tam){
             salva_aluno(menor_id, p);
             substitui(pilha, *menor_id, &i, arq, &i);
         }
-        for()
+        //for()
     }
 }
-
 
 
 
