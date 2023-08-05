@@ -10,8 +10,7 @@ public:
     static void application();
 };
 
-// le todos os alunos do arquivo
-void le_alunos(FILE *in);
+
 //adiciona um aluno no final do arquivo
 void adiciona_aluno(FILE *in);
 

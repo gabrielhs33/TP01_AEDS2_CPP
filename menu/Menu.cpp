@@ -130,19 +130,6 @@ void Menu::application() {
     }
 }
 
-
-void le_alunos(FILE *in) {
-
-    std::cout<< "\n\nLendo alunos do arquivo...\n\n"<<std::endl;
-    rewind(in);
-    Aluno *a;
-
-    while ((a = le_aluno(in)) != nullptr) {
-        imprime(a);
-        free(a);
-    }
-}
-
 Aluno* cadastra_aluno(int cont){
 
     char nome[50];
