@@ -37,6 +37,8 @@ int tamanho();
 Aluno* busca_id(int id, FILE *arq, int tam);
 //ordena os alunos no arquivo em ordem crescente pelo id
 void ordena_aluno_id(FILE *arq, int tam);
+// le todos os alunos do arquivo
+void le_alunos(FILE *in);
 //ordena os alunos no arquivo em ordem alfabetica pelo nome
 void ordena_aluno_nome(FILE *arq, int tam);
 
