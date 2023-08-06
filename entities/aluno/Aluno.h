@@ -37,23 +37,10 @@ int tamanho();
 Aluno* busca_id(int id, FILE *arq, int tam);
 //ordena os alunos no arquivo em ordem crescente pelo id
 void ordena_aluno_id(FILE *arq, int tam);
-// le todos os alunos do arquivo
-void le_alunos(FILE *in);
-//ordena os alunos no arquivo em ordem alfabetica pelo nome
-void ordena_aluno_nome(FILE *arq, int tam);
-
-void ordena_aluno_coeficiente(FILE *arq, int tam);
 
 Aluno* busca_sequencial(int id, FILE* file);
+// le todos os alunos do arquivo
+void le_alunos(FILE *in);
 
-void cria_pilha(TPilha *pilha, FILE *arq, int tam);
-
-Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
-
-bool verifica_congelamento(TPilha pilha, int *array_congelados);
-
-void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados);
-
-void ordena_por_substituicao(FILE *arq, int tam);
 
 #endif

@@ -77,13 +77,13 @@ void Menu::application() {
 
                     case 5:
 
-                        ordena_aluno_nome(out, contar_registros(out));
+                        //ordena_aluno_nome(out, contar_registros(out));
                         std::cout<<"alunos ordenados pelo nome"<<std::endl;
                         break;
 
                     case 6:
 
-                        ordena_aluno_coeficiente(out, contar_registros(out));
+                        //ordena_aluno_coeficiente(out, contar_registros(out));
                         break;
 
                     case 7:
@@ -102,9 +102,8 @@ void Menu::application() {
                             std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
                         }
                         break;
-                    case 8:
-                        ordena_por_substituicao(out, 6);
-                        FILE *a;
+                    //case 8:
+
                         break;
                     case -1:
 
@@ -151,25 +150,25 @@ Aluno* cadastra_aluno(int cont){
     return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
 }
 
-    void adiciona_aluno(FILE *in) {
+void adiciona_aluno(FILE *in) {
 
-        int tam = contar_registros(in);
+    int tam = contar_registros(in);
 
-        fseek(in, tamanho() * tam, SEEK_SET);
-        Aluno* a = cadastra_aluno(tam);
-        imprime(a);
-        salva_aluno(a, in);
-        free(a);
+    fseek(in, tamanho() * tam, SEEK_SET);
+    Aluno* a = cadastra_aluno(tam);
+    imprime(a);
+    salva_aluno(a, in);
+    free(a);
 
 
-        std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
-        fseek(in, tamanho() * tam, SEEK_SET);
-        Aluno *a6 = le_aluno(in);
-        if (a6 != nullptr) {
+    std::cout << "Adicionando aluno no final do arquivo..." << std::endl;
+    fseek(in, tamanho() * tam, SEEK_SET);
+    Aluno *a6 = le_aluno(in);
+    if (a6 != nullptr) {
 
-            free(a6);
-        }
+        free(a6);
     }
+}
 
 void cria_base_dados(FILE *out) {
 
