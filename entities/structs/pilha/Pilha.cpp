@@ -36,6 +36,7 @@ void push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
 Aluno *pop(TPilha *pilha, int base, int *topo) {
 
     if (pilha_vazia(base, *topo)) {
+        std::cout<< "\n\nPilha Vazia\n\n"<<std::endl;
         return nullptr;
     }
     else {
@@ -100,7 +101,7 @@ void cria_pilha_particao(TPilha *pilha, FILE *arq, int nAluno, int *vetTopo){
 void cria_pilha(TPilha *pilha, FILE *arq, int tam){
     // Achar o menor indice e inserir todos na pilha
     int j = 0;
-    while (!feof(arq) && j < tam){
+    while (!feof(arq) || j < tam){
         pilha->info = le_aluno(arq);
         push(pilha, pilha->limite, &j, pilha->info, j);
     }
@@ -108,7 +109,7 @@ void cria_pilha(TPilha *pilha, FILE *arq, int tam){
 
 Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
     int flag = 0;
-    for(int nmr = 0; nmr < 6; nmr++){
+    while(pilha_vazia(0, pilha.topo == 0)){
 
         Aluno * aluno = pop(&pilha, 0, &pilha.topo);
         if(array_congelados[aluno->id] == 1) {
@@ -124,7 +125,7 @@ Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
 bool verifica_congelamento(TPilha pilha, int *array_congelados){
     Aluno *aux;
     int flag;
-    for(int a =0; a < 6; a++) {
+    while(pilha_vazia(0, pilha.topo) == 0) {
         flag = 1;
         aux = pop(&pilha, 0, &pilha.topo);
         if (array_congelados[aux->id] == 0) {
@@ -138,7 +139,7 @@ bool verifica_congelamento(TPilha pilha, int *array_congelados){
     return true;
 }
 
-void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados){
+void substitui(TPilha *pilha, Aluno *r, int *p, FILE *arq, int *array_congelados){
     TPilha *pilha2;
     pilha2 = (TPilha*)malloc(sizeof(TPilha));
     TPilha * aux2;
@@ -148,25 +149,25 @@ void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados)
     Aluno *a3;
 
     inicializa(pilha2, 6, 0);
-    for (int i = 0; i < 6; i++){
+    while(pilha_vazia(0, pilha->topo) == 0){
         aux2->info = pop(pilha, 0, &pilha->topo);
-        if(aux2->info->id != r.id){
+        if(aux2->info->id != r->id){
             aux2->info = pop(pilha, 0, &pilha->topo);
-            push(pilha2, pilha2->limite, &i, aux2->info, i);
+            push(pilha2, pilha2->limite, &pilha->topo, aux2->info, pilha->topo);
         }else {
             *p = *p + 1;
             aux2->info = pop(pilha, 0, &pilha->topo);
             aux3->info = le_aluno(arq);
             a3 = aux3->info;
-            push(pilha2, pilha2->limite, &i, aux3->info, i);
-            if(a3->id < r.id){
+            push(pilha2, pilha2->limite, &pilha2->topo, aux3->info, pilha2->topo);
+            if(a3->id < r->id){
                 array_congelados[a3->id] = 1;
             }
         }
     }
-    for(int b = 0; b < 6; b++){
+    while(pilha_vazia(0, pilha->topo) == 0){
         aux2->info = pop(pilha2, 0, &pilha2->topo);
-        push(pilha, pilha->limite, &b, aux2->info, b);
+        push(pilha, pilha->limite, &pilha2->topo, aux2->info, pilha2->topo);
     }
     free(pilha2);
     free(aux2);
@@ -176,8 +177,8 @@ void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados)
 
 void ordena_por_substituicao(FILE *arq, int tam){
     int qtdParticoes = 0;
-    int qtd_registros = contar_registros(arq);
-    int array[tam];
+    int qtd_registros = tam;
+    int array[qtd_registros];
     int i = 0;
     TPilha *pilha;
     pilha = (TPilha*)malloc(sizeof(TPilha));
@@ -186,14 +187,15 @@ void ordena_por_substituicao(FILE *arq, int tam){
     Aluno * menor_id;
 
     char nomeParticao[int(qtd_registros/tam) + 1];
-    sprintf(nomeParticao, "TP01_AEDS2_CPP/files/particao%d.dat", qtdParticoes);
+    sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
     FILE* p;
     if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
         std::cout << "Erro ao criar arquivo de saida\n";
         return;
     }
 
-    while(i < qtd_registros){
+    for(i = 0; i < 6; i++){
+
         //acha o menor da pilha
         menor_id = menor_da_pilha(*pilha, pilha->info, array);
 
@@ -201,29 +203,21 @@ void ordena_por_substituicao(FILE *arq, int tam){
         salva_aluno(menor_id, p);
 
         // Insere menor no arquivo p
-        substitui(pilha, *menor_id, &i, arq, &i);
+        substitui(pilha, menor_id, &i, arq, &i);
 
         // Caso 7
         if(verifica_congelamento(*pilha, array)){
             fclose(p);
             qtdParticoes ++;
-            sprintf(nomeParticao, "TP01_AEDS2_CPP/files/particao%d.dat", qtdParticoes);
+            sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
             if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
                 std::cout << "Erro ao criar arquivo de saida\n";
             }
             std::fill(array, array + tam, 0);
         }
     }
-
-    FILE* arquivo = fopen("TP01_AEDS2_CPP/files/particao1.dat", "rb"); // Abrir o arquivo no modo de leitura binária
-    if (arquivo == nullptr) {
-        perror("Erro ao abrir o arquivo");
-    }
-    int valor;
-    while (fread(&valor, sizeof(valor), 1, arquivo) == 1) {
-        // Aqui você pode processar os dados conforme necessário
-        printf("%d ", valor);
-    }
+    FILE* arquivo = fopen("../files/particao0.dat", "r"); // Abrir o arquivo no modo de leitura binária
+    le_alunos(arquivo);
     fclose(arquivo);
 
     free(menor_id);

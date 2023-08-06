@@ -31,5 +31,11 @@ void imprime_pilha(TPilha *pilha, const int *topo);
 /*cria uma pilha de nFunc alunos lidos de um arquivo*/
 void cria_pilha_particao(TPilha *pilha, FILE *arq, int nFunc, const int *vetTopo);
 
+void cria_pilha(TPilha *pilha, FILE *arq, int tam);
+Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados);
+bool verifica_congelamento(TPilha pilha, int *array_congelados);
+void substitui(TPilha *pilha, Aluno r, int *p, FILE *arq, int *array_congelados);
+void ordena_por_substituicao(FILE *arq, int tam);
+
 
 #endif //TP01_AEDS2_CPP_PILHA_H

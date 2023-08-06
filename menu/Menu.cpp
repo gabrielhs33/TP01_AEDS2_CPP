@@ -102,8 +102,8 @@ void Menu::application() {
                             std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
                         }
                         break;
-                    //case 8:
-
+                    case 8:
+                        ordena_por_substituicao(out, 6);
                         break;
                     case -1:
 
@@ -172,10 +172,10 @@ void adiciona_aluno(FILE *in) {
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 36;
+    long int qtd = 6;
 
     int ids_disponiveis[qtd - 1];
-    for (int i = 1; i < qtd; i++) {
+    for (int i = 1; i <= qtd; i++) {
         ids_disponiveis[i - 1] = i;  // Preenche a lista de IDs disponíveis
     }
 

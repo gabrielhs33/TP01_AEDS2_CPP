@@ -3,6 +3,7 @@
 
 
 #include "../entities/aluno/Aluno.h"
+#include "../entities/structs/pilha/Pilha.h"
 
 class Menu {
 
