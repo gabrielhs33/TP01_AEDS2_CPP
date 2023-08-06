@@ -9,7 +9,7 @@
 //    }
 //}
 
-Tlista_aluno *cria_Alunos(int tam, ...)
+Tlista_aluno *cria_lista_lunos(int tam, ...)
 {
     va_list ap;
     auto *lc = (Tlista_aluno *)  malloc(sizeof(Tlista_aluno));
@@ -24,7 +24,7 @@ Tlista_aluno *cria_Alunos(int tam, ...)
     return lc;
 }
 
-void salva_Alunos(char *nome_arquivo, Tlista_aluno *lc)
+void salvar_aluno_lista(char *nome_arquivo, Tlista_aluno *lc)
 {
     FILE *out = fopen(nome_arquivo, "wb");
     int i;
@@ -34,19 +34,20 @@ void salva_Alunos(char *nome_arquivo, Tlista_aluno *lc)
     fclose(out);
 }
 
-bool compara_alunos(Tlista_aluno *c1, Tlista_aluno *c2)
-{
-    if (c1->tam != c2->tam) {
-        return false;
-    }
-    int i;
-    for (i = 0; i < c1->tam; i++) {
-        if (!compara_alunos(c1->lista[i], c2->lista[i])) {
-            return false;
-        }
-    }
-    return true;
-}
+//bool compara_alunos(Tlista_aluno *c1, Tlista_aluno *c2)
+//{
+//    if (c1->tam != c2->tam) {
+//        return false;
+//    }
+//    int i;
+//    for (i = 0; i < c1->tam; i++) {
+//
+//        if (!compara_alunos(c1->lista[i], c2->lista[i])){
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
 Tlista_aluno * le_Alunos(char *nome_arquivo)
 {
@@ -74,8 +75,8 @@ Tlista_aluno * le_Alunos(char *nome_arquivo)
     return lc;
 }
 
+void ler_aluno_lista(FILE *in, Tlista_aluno **list, int tam, int *congelados){
 
-void ler_Alunos(FILE *in, Tlista_aluno **list, int tam, int *congelados){
     if(tam < 0 || in == nullptr){
         (*list)->tam = 0;
         (*list)->lista = nullptr;
@@ -86,22 +87,22 @@ void ler_Alunos(FILE *in, Tlista_aluno **list, int tam, int *congelados){
 
     if(*list == nullptr){
         *list = (Tlista_aluno *) malloc(sizeof(Tlista_aluno));
-        Aluno *Aluno = nullptr;
+        Aluno *aluno = nullptr;
         (*list)->tam = tam;
         (*list)->lista = new class Aluno * [tam];
 
-        for(i = 0; i < tam && (Aluno = le_aluno(in)) != nullptr; i++){
-            (*list)->lista[i] = Aluno;
+        for(i = 0; i < tam && (aluno = le_aluno(in)) != nullptr; i++){
+            (*list)->lista[i] = aluno;
             congelados[i] = 0;
         }
     } else {
-        Aluno *Aluno = nullptr;
+        Aluno *aluno = nullptr;
         int tamAntiga = (*list)->tam;
         (*list)->tam += tam;
         (*list)->lista = new class Aluno* [(*list)->tam];
 
-        for(i = tamAntiga; i < (*list)->tam && (Aluno = le_aluno(in)) != nullptr; i++){
-            (*list)->lista[i] = Aluno;
+        for(i = tamAntiga; i < (*list)->tam && (aluno = le_aluno(in)) != nullptr; i++){
+            (*list)->lista[i] = aluno;
             congelados[i] = 0;
         }
     }

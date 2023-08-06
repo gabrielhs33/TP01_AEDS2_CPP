@@ -25,10 +25,16 @@ void substituirRegistro(Aluno *dest, Aluno *fnt){
     dest->id = fnt->id;
 }
 
-void selecao_com_substituicao(char *nome_arquivo_entrada, Nomes *nome_arquivos_saida, int M)
-{
-    FILE *in = fopen(nome_arquivo_entrada, "rb"),
-            *out;
+void selecao_com_substituicao(char *nome_arquivo_entrada, int qtd, int M){
+
+    FILE *in = fopen(nome_arquivo_entrada, "rb"),*out;
+    int qtdParticoes = 0;
+
+    int qtd_registros = contar_registros(in);
+
+    char nomeParticao[int(qtd_registros/M) + 1];
+    sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
+
     int i = 0, m = 0, gravado = 0, j = 0;
     Tlista_aluno *list = nullptr;
     int congelados[M];
@@ -36,10 +42,11 @@ void selecao_com_substituicao(char *nome_arquivo_entrada, Nomes *nome_arquivos_s
     memset(congelados, 0, sizeof(congelados));
 
     //	1. Ler M registros do arquivo para a memória
-    ler_aluno(in, &list, M, congelados);
-    int tam = conta_nomes(nome_arquivos_saida);
-    for(j = 0; j < tam; j++){
-        if(existe_nao_congelado(congelados, M)) out = fopen(nome_arquivos_saida->nome, "wb");
+    ler_aluno_lista(in, &list, M, congelados);
+
+    for(j = 0; j < qtd; j++){
+        sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
+        if(existe_nao_congelado(congelados, M)) out = fopen(nomeParticao, "wb");
         else continue;
         while(existe_nao_congelado(congelados, M)){
             //	2. Selecionar, no array em memória, o registro r com menor chave
@@ -77,14 +84,14 @@ void selecao_com_substituicao(char *nome_arquivo_entrada, Nomes *nome_arquivos_s
         /*	7. Caso contrário:
             - fechar a partição de saída*/
         if(/*j+1<tam*/gravado != INT_MAX){
-            salva_aluno(Aluno(INT_MAX, ""), out);
+            salvar_aluno_lista(Aluno(INT_MAX, ""), out);
         }
         fclose(out);
         //	- descongelar os registros congelados
         for(i = 0; i < M; i++)
             if(list->lista[i] != NULL) congelados[i] = 0;
         //	- abrir nova partição de saída
-        nome_arquivos_saida = nome_arquivos_saida->prox;
+        qtdParticoes++;
     }
 
     libera_aluno(list);
