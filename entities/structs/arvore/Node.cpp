@@ -6,7 +6,7 @@ using namespace std;
 
 // Estrutura para representar um nó da árvore binária de perdedores
 struct Node {
-    Aluno* aluno; // Alteração aqui
+    Aluno* aluno;
     Node* esquerda;
     Node* direita;
 
