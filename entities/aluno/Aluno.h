@@ -17,17 +17,13 @@ void imprime(Aluno *aluno);
 
 //Cria aluno
 Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente );
-
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out);
-
 //conta quantos registros foram inseridos no arquivo
 int contar_registros(FILE *out);
-
 // Le um aluno do arquivo in na posicao atual do cursor
 // Retorna um ponteiro para aluno lido do arquivo
 Aluno *le_aluno(FILE *in);
-
 // Retorna tamanho do aluno em bytes
 int tamanho();
 // Realiza busca binaria no arquivo ordenado
@@ -38,9 +34,6 @@ void ordena_aluno_id(FILE *arq, int tam);
 // le todos os alunos do arquivo
 void le_alunos(FILE *in);
 //ordena os alunos no arquivo em ordem alfabetica pelo nome
-void ordena_aluno_nome(FILE *arq, int tam);
-
-void ordena_aluno_coeficiente(FILE *arq, int tam);
 
 Aluno* busca_sequencial(int id, FILE* file);
 
