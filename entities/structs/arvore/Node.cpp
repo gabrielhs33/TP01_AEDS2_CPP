@@ -16,7 +16,7 @@ struct Node {
 
 // Função para criar um novo nó com o registro de um aluno
 Node* criarNo(Aluno* aluno) {
-    return new Node(aluno);
+    return new Node(*aluno);
 }
 
 // Função para construir a árvore binária de perdedores a partir de um vetor de registros
@@ -58,7 +58,7 @@ void liberarArvore(Node* raiz) {
 
 // Função para inserir o registro do nó em um arquivo de saída
 void inserirNoArquivo(FILE* arquivoSaida, Node* no) {
-    fprintf(arquivoSaida, "%d\n", no->aluno->id);
+    fprintf(arquivoSaida, "%d\n", no->aluno.id);
 }
 
 // Função que realiza a ordenação dos registros em um único arquivo de saída
@@ -73,7 +73,7 @@ void ordenarRegistros(vector<FILE*>& arquivos, FILE* arquivoSaida) {
             // Tratar o erro, caso necessário
             continue;
         }
-        registros.push_back(criarNo(aluno));
+        registros.push_back(criarNo(&aluno));
     }
 
     // Ordena os registros e insere os registros no arquivo de saída
@@ -84,38 +84,3 @@ void ordenarRegistros(vector<FILE*>& arquivos, FILE* arquivoSaida) {
     liberarArvore(raizArvore);
 }
 
-int main() {
-    int n = 3; // Número de arquivos de entrada
-    vector<FILE*> arquivos;
-
-    // Abre os arquivos de entrada
-    for (int i = 0; i < n; i++) {
-        FILE* arquivo = fopen(("arquivo_" + to_string(i) + ".txt").c_str(), "r");
-        if (!arquivo) {
-            cerr << "Erro ao abrir arquivo_" << i << ".txt" << endl;
-            // Tratar o erro, caso necessário
-            continue;
-        }
-        arquivos.push_back(arquivo);
-    }
-
-    // Cria o arquivo de saída para armazenar os registros ordenados
-    FILE* arquivoSaida = fopen("registros_ordenados.txt", "w");
-    if (!arquivoSaida) {
-        cerr << "Erro ao abrir arquivo registros_ordenados.txt" << endl;
-        return 1;
-    }
-
-    // Ordena os registros em um único arquivo de saída
-    ordenarRegistros(arquivos, arquivoSaida);
-
-    // Fecha o arquivo de saída
-    fclose(arquivoSaida);
-
-    // Fecha os arquivos de entrada
-    for (FILE* arquivo : arquivos) {
-        fclose(arquivo);
-    }
-
-    return 0;
-}
