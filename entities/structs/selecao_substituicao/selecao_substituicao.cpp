@@ -36,7 +36,7 @@ void selecao_com_substituicao(char *nome_arquivo_entrada, Nomes *nome_arquivos_s
     memset(congelados, 0, sizeof(congelados));
 
     //	1. Ler M registros do arquivo para a memória
-    ler_aluno(in, &list, M, congelados);
+    ler_alunos_lista(in, &list, M, congelados);
     int tam = conta_nomes(nome_arquivos_saida);
     for(j = 0; j < tam; j++){
         if(existe_nao_congelado(congelados, M)) out = fopen(nome_arquivos_saida->nome, "wb");

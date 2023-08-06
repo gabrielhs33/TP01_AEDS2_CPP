@@ -9,7 +9,7 @@
 //    }
 //}
 
-Tlista_aluno *cria_Alunos(int tam, ...)
+Tlista_aluno *cria_alunos(int tam, ...)
 {
     va_list ap;
     auto *lc = (Tlista_aluno *)  malloc(sizeof(Tlista_aluno));
@@ -24,7 +24,7 @@ Tlista_aluno *cria_Alunos(int tam, ...)
     return lc;
 }
 
-void salva_Alunos(char *nome_arquivo, Tlista_aluno *lc)
+void salva_alunos(char *nome_arquivo, Tlista_aluno *lc)
 {
     FILE *out = fopen(nome_arquivo, "wb");
     int i;
@@ -34,21 +34,26 @@ void salva_Alunos(char *nome_arquivo, Tlista_aluno *lc)
     fclose(out);
 }
 
-bool compara_alunos(Tlista_aluno *c1, Tlista_aluno *c2)
-{
-    if (c1->tam != c2->tam) {
-        return false;
-    }
-    int i;
-    for (i = 0; i < c1->tam; i++) {
-        if (!compara_alunos(c1->lista[i], c2->lista[i])) {
-            return false;
-        }
-    }
-    return true;
-}
+//bool compara_aluno(Aluno *a1, Aluno *a2) {
+//    // Aqui você deve implementar a comparação dos campos do aluno
+//    // Por exemplo, se os nomes e outras informações forem iguais, retorne true, caso contrário, retorne false.
+//}
+//
+//bool compara_aluno(Tlista_aluno *c1, Tlista_aluno *c2)
+//{
+//    if (c1->tam != c2->tam) {
+//        return false;
+//    }
+//    int i;
+//    for (i = 0; i < c1->tam; i++) {
+//        if (compara_aluno(c1->lista[i]), c2->lista[i]) {
+//            return false;
+//        }
+//    }
+//    return true;
+//}
 
-Tlista_aluno * le_Alunos(char *nome_arquivo)
+Tlista_aluno * le_aluno(char *nome_arquivo)
 {
     int tam = 0;
     auto *lc = (Tlista_aluno *)  malloc(sizeof(Tlista_aluno));
@@ -75,7 +80,7 @@ Tlista_aluno * le_Alunos(char *nome_arquivo)
 }
 
 
-void ler_Alunos(FILE *in, Tlista_aluno **list, int tam, int *congelados){
+void ler_alunos_lista(FILE *in, Tlista_aluno **list, int tam, int *congelados){
     if(tam < 0 || in == nullptr){
         (*list)->tam = 0;
         (*list)->lista = nullptr;
@@ -108,7 +113,7 @@ void ler_Alunos(FILE *in, Tlista_aluno **list, int tam, int *congelados){
     for(; i < tam; i++) congelados[i] = 1;
 }
 
-void libera_Alunos(Tlista_aluno *lc)
+void libera_alunos(Tlista_aluno *lc)
 {
     int i;
     for (i = 0; i < lc->tam; i++) {
