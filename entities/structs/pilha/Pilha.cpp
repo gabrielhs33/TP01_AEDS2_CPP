@@ -28,6 +28,7 @@ void push(TPilha *pilha, int lim, int *topo, Aluno *info, int p){
     else {
         //faz a inserção
         *topo = *topo + 1;
+        pilha[*topo].info = new Aluno;
         pilha[*topo].info = info;
         pilha[*topo].p = p;
     }
@@ -99,31 +100,35 @@ void cria_pilha_particao(TPilha *pilha, FILE *arq, int nAluno, int *vetTopo){
     //imprime_pilha(pilha,vetTopo);
 }
 void cria_pilha(TPilha *pilha, FILE *arq, int tam){
-    // Achar o menor indice e inserir todos na pilha
+    // Inserir todos na pilha
     int j = 0;
-    while (!feof(arq) || j < tam){
-        pilha->info = le_aluno(arq);
-        push(pilha, pilha->limite, &j, pilha->info, j);
+    auto * aux = new Aluno;
+    rewind(arq);
+    while (feof(arq) == 0 && j < tam){
+        aux = le_aluno(arq);
+        push(pilha, pilha->limite, &pilha->topo, aux, pilha->p);
+        j++;
     }
 }
 
 Aluno * menor_da_pilha(TPilha pilha, Aluno *aluno_menor, int *array_congelados){
     int flag = 0;
+    TPilha aux;
     while(pilha_vazia(0, pilha.topo == 0)){
-
-        Aluno * aluno = pop(&pilha, 0, &pilha.topo);
-        if(array_congelados[aluno->id] == 1) {
+        printf("%d", aux.info->id);
+        aux.info = pop(&pilha, 0, &pilha.topo);
+        if(array_congelados[aux.info->id] == 1) {
             flag = 1;
         }
-        if (flag == 0 && aluno_menor->id > aluno->id) {
-            aluno_menor = aluno;
+        if (flag == 0 && aluno_menor->id > aux.info->id) {
+            aluno_menor = aux.info;
         }
     }
     return aluno_menor;
 }
 
 bool verifica_congelamento(TPilha pilha, int *array_congelados){
-    Aluno *aux;
+    auto * aux = new Aluno;
     int flag;
     while(pilha_vazia(0, pilha.topo) == 0) {
         flag = 1;
@@ -132,6 +137,7 @@ bool verifica_congelamento(TPilha pilha, int *array_congelados){
             flag = 0;
         }
         if (flag == 0){
+            free(aux);
             return false;
         }
     }
@@ -142,32 +148,31 @@ bool verifica_congelamento(TPilha pilha, int *array_congelados){
 void substitui(TPilha *pilha, Aluno *r, int *p, FILE *arq, int *array_congelados){
     TPilha *pilha2;
     pilha2 = (TPilha*)malloc(sizeof(TPilha));
-    TPilha * aux2;
-    aux2 = (TPilha*)malloc(sizeof(TPilha));
-    TPilha * aux3;
-    aux3 = (TPilha*)malloc(sizeof(TPilha));
-    Aluno *a3;
-
     inicializa(pilha2, 6, 0);
+
+    auto *aux2 = new Aluno;
+    auto *aux3 = new Aluno;
+    auto *a3 = new Aluno;
+
     while(pilha_vazia(0, pilha->topo) == 0){
-        aux2->info = pop(pilha, 0, &pilha->topo);
-        if(aux2->info->id != r->id){
-            aux2->info = pop(pilha, 0, &pilha->topo);
-            push(pilha2, pilha2->limite, &pilha->topo, aux2->info, pilha->topo);
+        aux2 = pop(pilha, 0, &pilha->topo);
+        if(aux2->id != r->id){
+            aux2 = pop(pilha, 0, &pilha->topo);
+            push(pilha2, pilha2->limite, &pilha->topo, aux2, pilha->topo);
         }else {
             *p = *p + 1;
-            aux2->info = pop(pilha, 0, &pilha->topo);
-            aux3->info = le_aluno(arq);
-            a3 = aux3->info;
-            push(pilha2, pilha2->limite, &pilha2->topo, aux3->info, pilha2->topo);
+            aux2 = pop(pilha, 0, &pilha->topo);
+            aux3 = le_aluno(arq);
+            a3 = aux3;
+            push(pilha2, pilha2->limite, &pilha2->topo, aux3, pilha2->topo);
             if(a3->id < r->id){
                 array_congelados[a3->id] = 1;
             }
         }
     }
     while(pilha_vazia(0, pilha->topo) == 0){
-        aux2->info = pop(pilha2, 0, &pilha2->topo);
-        push(pilha, pilha->limite, &pilha2->topo, aux2->info, pilha2->topo);
+        aux2 = pop(pilha2, 0, &pilha2->topo);
+        push(pilha, pilha->limite, &pilha2->topo, aux2, pilha2->topo);
     }
     free(pilha2);
     free(aux2);
