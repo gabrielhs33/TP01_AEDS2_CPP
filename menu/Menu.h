@@ -3,7 +3,6 @@
 
 
 #include "../entities/aluno/Aluno.h"
-#include "../entities/structs/pilha/Pilha.h"
 
 class Menu {
 
@@ -11,7 +10,6 @@ public:
     static void application();
 };
 
-Aluno* cadastra_aluno(int cont);
 
 //adiciona um aluno no final do arquivo
 void adiciona_aluno(FILE *in);

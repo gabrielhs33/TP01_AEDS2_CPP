@@ -1,5 +1,5 @@
 #include <iostream>
-#include "Pilha.h"
+#include "pilha.h"
 
 void inicializa(TPilha *pilha, int lim, int topo){
     pilha->topo = topo;

@@ -1,8 +1,6 @@
 #ifndef TP01_AEDS2_CPP_ALUNO_H
 #define TP01_AEDS2_CPP_ALUNO_H
-
 #include <string>
-#include "../structs/pilha/Pilha.h"
 
 class Aluno {
 
@@ -37,10 +35,17 @@ int tamanho();
 Aluno* busca_id(int id, FILE *arq, int tam);
 //ordena os alunos no arquivo em ordem crescente pelo id
 void ordena_aluno_id(FILE *arq, int tam);
-
-Aluno* busca_sequencial(int id, FILE* file);
 // le todos os alunos do arquivo
 void le_alunos(FILE *in);
+//ordena os alunos no arquivo em ordem alfabetica pelo nome
+void ordena_aluno_nome(FILE *arq, int tam);
 
+void ordena_aluno_coeficiente(FILE *arq, int tam);
+
+Aluno* busca_sequencial(int id, FILE* file);
+
+void selecao_por_substituicao(FILE* arq, int memoria);
+
+void ordena_substituicao(FILE *arq, int tam);
 
 #endif
