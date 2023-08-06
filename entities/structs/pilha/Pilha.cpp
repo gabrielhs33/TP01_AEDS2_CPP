@@ -1,5 +1,5 @@
 #include <iostream>
-#include "pilha.h"
+#include "Pilha.h"
 
 void inicializa(TPilha *pilha, int lim, int topo){
     pilha->topo = topo;
@@ -210,7 +210,7 @@ void ordena_por_substituicao(FILE *arq, int tam){
             fclose(p);
             qtdParticoes ++;
             sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
-            if ((p = fopen(nomeParticao, "wb+")) == nullptr) {
+            if ((p = fopen(nomeParticao, "w+b")) == nullptr) {
                 std::cout << "Erro ao criar arquivo de saida\n";
             }
             std::fill(array, array + tam, 0);
