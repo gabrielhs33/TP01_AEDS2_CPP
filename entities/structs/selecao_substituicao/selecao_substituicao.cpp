@@ -39,14 +39,17 @@ void selecao_com_substituicao(FILE* in, int M){
     Aluno *menor = NULL, *lido;
     memset(congelados, 0, sizeof(congelados));
 
+    FILE *out = fopen(nomeParticao ,"w+b");
+
     //	1. Ler M registros do arquivo para a memória
     ler_aluno_lista(in, &list, M, congelados);
     sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
     for(int j = 0; j < M; j++){
-        FILE *out = fopen(nomeParticao ,"w+b");
+
         if(existe_nao_congelado(congelados, M)) out = fopen(nomeParticao, "wb");
         else continue;
         while(existe_nao_congelado(congelados, M)){
+            FILE *out = fopen(nomeParticao ,"w+b");
             //	2. Selecionar, no array em memória, o registro r com menor chave
             int menor_val = INT_MAX;
             for(int i = 0; i < M; i++){
@@ -59,7 +62,7 @@ void selecao_com_substituicao(FILE* in, int M){
             }
             //	3. Gravar o registro r na partição de saída
             salva_aluno(menor, out);
-            printf("chegou");
+            printf("chego");
             //	4. Substituir, no array em memória, o registro r pelo próximo registro do arquivo de entrada
             //if(list->lista[m] != NULL){
             gravado = menor->id;
