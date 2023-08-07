@@ -46,6 +46,8 @@ void le_alunos(FILE *in);
 
 Aluno* busca_sequencial(int id, FILE* file);
 
+void insere_no_arquivo(FILE *in, FILE  *out);
+
 
 
 #endif

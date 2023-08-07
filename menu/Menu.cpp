@@ -105,7 +105,7 @@ void Menu::application() {
                     case 8:
                         int qtd;
                          qtd = selecao_com_substituicao(out, 6);
-                        intercalacao(qtd, out);
+                         intercalacao_otima(out, qtd);
                         break;
 
                     case -1:
@@ -175,7 +175,7 @@ void adiciona_aluno(FILE *in) {
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 10;
+    long int qtd = 100;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i <= qtd; i++) {

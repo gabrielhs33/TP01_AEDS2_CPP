@@ -214,6 +214,18 @@ void le_alunos(FILE *in) {
     }
 }
 
+void insere_no_arquivo(FILE *in, FILE  *out){
+
+    rewind(in);
+    rewind(out);
+    Aluno *a;
+
+    while ((a = le_aluno(in)) != nullptr) {
+
+        salva_aluno(a,out);
+    }
+}
+
 
 
 

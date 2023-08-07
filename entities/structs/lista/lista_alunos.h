@@ -8,23 +8,6 @@ typedef struct lista_alunos {
     int tam;
 }Tlista_aluno;
 
-// Imprime aluno
-void imprime_aluno(Tlista_aluno *lc);
-
-// Cria lista de aluno. Lembrar de usar libera_aluno(lista_aluno)
-Tlista_aluno *cria_lista_alunos(int qtd, ...);
-
-// Salva lista de aluno no arquivo nome_arquivo
-void salvar_aluno_lista(char nome_arquivo, Tlista_aluno *lc);
-
-// Le lista de aluno do arquivo nome_arquivo
-Tlista_aluno * le_Alunos(char *nome_arquivo);
-
-// Compara duas listas de aluno
-// Retorna 1 se os aluno das duas listas forem iguais
-// e 0 caso contrario
-bool compara_alunos(Tlista_aluno *c1, Tlista_aluno *c2);
-
 // Desaloca lista de aluno
 void libera_aluno(Tlista_aluno *lc);
 
