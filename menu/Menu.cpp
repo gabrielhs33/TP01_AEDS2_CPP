@@ -10,7 +10,7 @@ void Menu::application() {
     int op = 0;
 
 
-    FILE *out = std::fopen("aluno.dat", "w+b");
+    FILE *out = std::fopen("aluno.dat", "wb+");
 
     if (out != nullptr) {
 
@@ -103,9 +103,9 @@ void Menu::application() {
                         break;
 
                     case 8:
-
-                        selecao_com_substituicao(out, 6);
-                        //chama_arvore(out);
+                        int qtd;
+                         qtd = selecao_com_substituicao(out, 6);
+                        intercalacao(qtd, out);
                         break;
 
                     case -1:

@@ -26,7 +26,7 @@ void substituirRegistro(Aluno *dest, Aluno *fnt){
     dest->id = fnt->id;
 }
 
-void selecao_com_substituicao(FILE* in, int M){
+int selecao_com_substituicao(FILE* in, int M){
 
     int qtdParticoes = 0;
     int qtd_registros = contar_registros(in);
@@ -48,7 +48,6 @@ void selecao_com_substituicao(FILE* in, int M){
 
         if(existe_nao_congelado(congelados, M)){
             out = fopen(nomeParticao, "wb+");
-            printf("Criado arquivo %d", qtdParticoes);
         }
         else continue;
         while(existe_nao_congelado(congelados, M)){
@@ -64,7 +63,6 @@ void selecao_com_substituicao(FILE* in, int M){
                 }
             }
             //	3. Gravar o registro r na partição de saída
-            printf("\n%d", menor->id);
             salva_aluno(menor, out);
             //	4. Substituir, no array em memória, o registro r pelo próximo registro do arquivo de entrada
             //if(list->lista[m] != NULL){
@@ -88,9 +86,8 @@ void selecao_com_substituicao(FILE* in, int M){
         }
         /*	7. Caso contrário:
             - fechar a partição de saída*/
-//        if(gravado != INT_MAX){
-//            salva_aluno(aluno(INT_MAX, "","","",0), out);
-//        }
+
+        le_alunos(out);
         fclose(out);
         //	- descongelar os registros congelados
         for(int i = 0; i < M; i++)
@@ -99,20 +96,8 @@ void selecao_com_substituicao(FILE* in, int M){
         qtdParticoes++;
         sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
     }
-    int i = 0;
-    sprintf(nomeParticao, "../files/particao%d.dat",i);
-    FILE* iu = fopen(nomeParticao,"rb");
-    le_alunos(iu);
-
-    while(iu){
-
-        i++;
-        sprintf(nomeParticao, "../files/particao%d.dat",i);
-        FILE* iu = fopen(nomeParticao,"rb");
-        le_alunos(iu);
-        fclose(iu);
-        printf("///");
-    }
     fclose(in);
     libera_aluno(list);
+
+    return qtdParticoes;
 }
