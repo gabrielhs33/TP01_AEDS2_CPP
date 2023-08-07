@@ -214,7 +214,9 @@ void le_alunos(FILE *in) {
     }
 }
 
-void insere_no_arquivo(FILE *in, FILE  *out){
+void insere_no_arquivo( FILE  *out){
+
+    FILE *in = std::fopen("teste.dat", "rb");
 
     rewind(in);
     rewind(out);

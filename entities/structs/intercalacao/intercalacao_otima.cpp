@@ -70,6 +70,5 @@ void intercalacao_otima(FILE *out, int numParticoes) {
     free(alunoAtual);
     free(indices);
 
-    le_alunos(saida);
     fclose(saida);
 }

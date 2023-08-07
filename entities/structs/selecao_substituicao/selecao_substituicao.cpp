@@ -84,10 +84,8 @@ int selecao_com_substituicao(FILE* in, int M){
 
             //	6. Caso existam em memória registros não congelados, voltar ao passo 2
         }
-        /*	7. Caso contrário:
-            - fechar a partição de saída*/
+        /*	7. Caso contrário:- fechar a partição de saída*/
 
-        le_alunos(out);
         fclose(out);
         //	- descongelar os registros congelados
         for(int i = 0; i < M; i++)

@@ -23,9 +23,8 @@ void Menu::application() {
             std::cout << "(2) Imprimir todos os registros" << std::endl;
             std::cout << "(3) Buscar aluno por id" << std::endl;
             std::cout << "(4) Ordenar aluno por id" << std::endl;
-            std::cout << "(5) Ordenar alunos em ordem alfabetica"<<std::endl;
-            std::cout << "(6) Ordenar alunos por coeficiente"<<std::endl;
-            std::cout << "(7) Realizar busca sequencial"<<std::endl;
+            std::cout << "(5) Realizar busca sequencial"<<std::endl;
+            std::cout << "(6) Realizar selecao por substituicao e intercalacao otima"<<std::endl;
             std::cout << "(-1) Finaliza a aplicacao"<<std::endl;
 
             try {
@@ -75,18 +74,9 @@ void Menu::application() {
                         std::cout<<"alunos ordenados pelo id"<<std::endl;
                         break;
 
+
+
                     case 5:
-
-                        //ordena_aluno_nome(out, contar_registros(out));
-                        std::cout<<"alunos ordenados pelo nome"<<std::endl;
-                        break;
-
-                    case 6:
-
-                        //ordena_aluno_coeficiente(out, contar_registros(out));
-                        break;
-
-                    case 7:
 
                         std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                         std::cin>>x;
@@ -102,10 +92,12 @@ void Menu::application() {
                         }
                         break;
 
-                    case 8:
+                    case 6:
                         int qtd;
                          qtd = selecao_com_substituicao(out, 6);
                          intercalacao_otima(out, qtd);
+                         insere_no_arquivo(out);
+                         printf("\narquivo ordenado");
                         break;
 
                     case -1:
