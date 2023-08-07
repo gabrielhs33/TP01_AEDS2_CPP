@@ -88,7 +88,6 @@ void Menu::application() {
 
                     case 7:
 
-                        int y;
                         std::cout<<"informe o id o aluno que deseja buscar"<<std::endl;
                         std::cin>>x;
 
@@ -102,9 +101,12 @@ void Menu::application() {
                             std::cout<<"aluno nao encontrado na base de dados"<<std::endl;
                         }
                         break;
+
                     case 8:
-                        ordena_por_substituicao(out, 6);
+
+                        selecao_com_substituicao(out, 6);
                         break;
+
                     case -1:
 
                         break;

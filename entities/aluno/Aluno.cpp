@@ -3,6 +3,7 @@
 #include <chrono>
 #include "Aluno.h"
 
+
 //Imprime aluno
 void imprime(Aluno *aluno){
 
@@ -212,6 +213,7 @@ void le_alunos(FILE *in) {
         free(a);
     }
 }
+
 
 
 

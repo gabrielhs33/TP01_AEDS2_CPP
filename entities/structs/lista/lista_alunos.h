@@ -15,10 +15,10 @@ void imprime_aluno(Tlista_aluno *lc);
 Tlista_aluno *cria_lista_alunos(int qtd, ...);
 
 // Salva lista de aluno no arquivo nome_arquivo
-void salvar_aluno_lista(char *nome_arquivo, Tlista_aluno *lc);
+void salvar_aluno_lista(char nome_arquivo, Tlista_aluno *lc);
 
 // Le lista de aluno do arquivo nome_arquivo
-Tlista_aluno *le_alunos(char *nome_arquivo);
+Tlista_aluno * le_Alunos(char *nome_arquivo);
 
 // Compara duas listas de aluno
 // Retorna 1 se os aluno das duas listas forem iguais
@@ -27,7 +27,7 @@ bool compara_alunos(Tlista_aluno *c1, Tlista_aluno *c2);
 
 // Desaloca lista de aluno
 void libera_aluno(Tlista_aluno *lc);
-void ler_aluno_lista(FILE *in, Tlista_aluno **list, int qtd, int *congelados);
 
+void ler_aluno_lista(FILE *in, Tlista_aluno **list, int qtd, int *congelados);
 
 #endif //TP01_AEDS2_CPP_LISTA_ALUNOS_H

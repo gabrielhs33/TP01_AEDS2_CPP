@@ -1,9 +1,8 @@
 #ifndef TP01_AEDS2_CPP_MENU_H
 #define TP01_AEDS2_CPP_MENU_H
 
-
 #include "../entities/aluno/Aluno.h"
-#include "../entities/structs/pilha/Pilha.h"
+#include "../entities/structs/selecao_substituicao/selecao_substituicao.h"
 
 class Menu {
 

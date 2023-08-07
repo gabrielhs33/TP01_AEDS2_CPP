@@ -24,7 +24,7 @@ Tlista_aluno *cria_lista_lunos(int tam, ...)
     return lc;
 }
 
-void salvar_aluno_lista(char *nome_arquivo, Tlista_aluno *lc)
+void salvar_aluno_lista(char* nome_arquivo, Tlista_aluno *lc)
 {
     FILE *out = fopen(nome_arquivo, "wb");
     int i;
@@ -109,7 +109,7 @@ void ler_aluno_lista(FILE *in, Tlista_aluno **list, int tam, int *congelados){
     for(; i < tam; i++) congelados[i] = 1;
 }
 
-void libera_Alunos(Tlista_aluno *lc)
+void libera_aluno(Tlista_aluno *lc)
 {
     int i;
     for (i = 0; i < lc->tam; i++) {
