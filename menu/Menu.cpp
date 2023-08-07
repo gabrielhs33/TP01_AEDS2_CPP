@@ -174,7 +174,7 @@ void adiciona_aluno(FILE *in) {
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 6;
+    long int qtd = 10;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i <= qtd; i++) {
