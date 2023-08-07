@@ -25,7 +25,6 @@ Node* construirArvoreDePerdedores(vector<Node*>& registros) {
     if (registros.size() == 1) {
         return registros[0];
     }
-
     vector<Node*> novaLista;
     for (size_t i = 0; i < registros.size(); i += 2) {
         if (i + 1 < registros.size()) {
@@ -61,37 +60,39 @@ void inserirNoArquivo(FILE* arquivoSaida, Node* no) {
     fprintf(arquivoSaida, "%d\n", no->aluno->id);
 }
 
-//// Função que realiza a ordenação dos registros em um único arquivo de saída
-//void ordenarRegistros(vector<FILE*>arquivos, FILE* arquivoSaida) {
-//
-//    int i=0;
-//    char nomeParticao[1];
-//    sprintf(nomeParticao, "../files/particao%d.dat", i);
-//    FILE* arq;
-//
-//    while(arq = fopen(nomeParticao,"rb")){
-//
-//        // Lê o primeiro registro de cada arquivo e cria os nós folha da árvore
-//        for (size_t i = 0; i < arquivos.size(); i++) {
-//            Aluno *aluno;
-//            if (fscanf(arquivos[i], "%d", &aluno->id) != 1) {
-//                cerr << "Erro ao ler registro do arquivo_" << i << ".dat" << endl;
-//                continue;
-//            }
-//            registros.push_back(criarNo(aluno));
-//        }
-//        // Ordena os registros e insere os registros no arquivo de saída
-//        Node* raizArvore = construirArvoreDePerdedores(registros);
-//        inserirNoArquivo(arquivoSaida, raizArvore);
-//        i++;
-//        sprintf(nomeParticao, "../files/particao%d.dat", i);
-//        // Libera a memória ocupada pela árvore
-//        liberarArvore(raizArvore);
-//    }
-//}
-//
-//void chama_arvore(FILE* in){
-//
-//    std::string folderPath = "../files";
-//    ordenarRegistros(getFilesFromFolder(folderPath),in);
-//}
+// Função que realiza a ordenação dos registros em um único arquivo de saída
+void ordenarRegistros(vector<FILE*>arquivos, FILE* arquivoSaida) {
+
+    vector<Node*> registros;
+
+    char nomeParticao[1];
+
+    int i = 0;
+    sprintf(nomeParticao, "../files/particao%d.dat",i);
+    FILE* iu = fopen(nomeParticao,"rb");
+
+    while(iu != nullptr){
+        le_alunos(iu);
+        i++;
+        sprintf(nomeParticao, "../files/particao%d.dat",i);
+        iu = fopen(nomeParticao,"rb");
+
+        // Lê o primeiro registro de cada arquivo e cria os nós folha da árvore
+
+        Aluno *aluno= le_aluno(iu);
+        registros.push_back(criarNo(aluno));
+        // Ordena os registros e insere os registros no arquivo de saída
+        Node* raizArvore = construirArvoreDePerdedores(registros);
+        inserirNoArquivo(arquivoSaida, raizArvore);
+        i++;
+        sprintf(nomeParticao, "../files/particao%d.dat", i);
+        // Libera a memória ocupada pela árvore
+        liberarArvore(raizArvore);
+    }
+}
+
+void chama_arvore(FILE* in){
+
+    std::string folderPath = "../files";
+    ordenarRegistros(getFilesFromFolder(folderPath),in);
+}
