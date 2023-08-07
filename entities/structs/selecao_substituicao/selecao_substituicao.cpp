@@ -99,6 +99,32 @@ void selecao_com_substituicao(FILE* in, int M){
         qtdParticoes++;
         sprintf(nomeParticao, "../files/particao%d.dat", qtdParticoes);
     }
+
+//    for (int i =0; i<2;i++){
+//
+//        sprintf(nomeParticao, "../files/particao%d.dat", i);
+//        FILE* iu = fopen(nomeParticao,"rb");
+//        le_alunos(iu);
+//        fclose(iu);
+//        printf("////");
+//    }
+
+
+    int i = 0;
+    sprintf(nomeParticao, "../files/particao%d.dat",i);
+    FILE* iu = fopen(nomeParticao,"rb");
+    le_alunos(iu);
+
+    while(iu){
+
+        i++;
+        sprintf(nomeParticao, "../files/particao%d.dat",i);
+        FILE* iu = fopen(nomeParticao,"rb");
+        le_alunos(iu);
+        fclose(iu);
+        printf("///");
+
+    }
     fclose(in);
 
     libera_aluno(list);

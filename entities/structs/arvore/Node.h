@@ -1,5 +1,4 @@
 #ifndef TP01_AEDS2_CPP_NODE_H
-#define TP01_AEDS2_CPP_NODE_H
 #include "../../aluno/Aluno.h"
 
 struct Node {
@@ -9,6 +8,8 @@ struct Node {
     Node* direita;
 
 };
+
+void chama_arvore(FILE* in);
 
 
 #endif //TP01_AEDS2_CPP_NODE_H

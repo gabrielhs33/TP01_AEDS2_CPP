@@ -1,11 +1,13 @@
 #include <iostream>
 #include <vector>
 #include <cstdio>
+#include <dirent.h>
 #include "../../aluno/Aluno.h"
 using namespace std;
 
 // Estrutura para representar um nó da árvore binária de perdedores
 struct Node {
+
     Aluno* aluno;
     Node* esquerda;
     Node* direita;
@@ -42,7 +44,6 @@ Node* construirArvoreDePerdedores(vector<Node*>& registros) {
             novaLista.push_back(registros[i]);
         }
     }
-
     return construirArvoreDePerdedores(novaLista);
 }
 
@@ -60,24 +61,37 @@ void inserirNoArquivo(FILE* arquivoSaida, Node* no) {
     fprintf(arquivoSaida, "%d\n", no->aluno->id);
 }
 
-// Função que realiza a ordenação dos registros em um único arquivo de saída
-void ordenarRegistros(vector<FILE*>& arquivos, FILE* arquivoSaida) {
-    vector<Node*> registros;
-
-    // Lê o primeiro registro de cada arquivo e cria os nós folha da árvore
-    for (size_t i = 0; i < arquivos.size(); i++) {
-        Aluno *aluno;
-        if (fscanf(arquivos[i], "%d", &aluno->id) != 1) {
-            cerr << "Erro ao ler registro do arquivo_" << i << ".dat" << endl;
-            continue;
-        }
-        registros.push_back(criarNo(aluno));
-    }
-
-    // Ordena os registros e insere os registros no arquivo de saída
-    Node* raizArvore = construirArvoreDePerdedores(registros);
-    inserirNoArquivo(arquivoSaida, raizArvore);
-
-    // Libera a memória ocupada pela árvore
-    liberarArvore(raizArvore);
-}
+//// Função que realiza a ordenação dos registros em um único arquivo de saída
+//void ordenarRegistros(vector<FILE*>arquivos, FILE* arquivoSaida) {
+//
+//    int i=0;
+//    char nomeParticao[1];
+//    sprintf(nomeParticao, "../files/particao%d.dat", i);
+//    FILE* arq;
+//
+//    while(arq = fopen(nomeParticao,"rb")){
+//
+//        // Lê o primeiro registro de cada arquivo e cria os nós folha da árvore
+//        for (size_t i = 0; i < arquivos.size(); i++) {
+//            Aluno *aluno;
+//            if (fscanf(arquivos[i], "%d", &aluno->id) != 1) {
+//                cerr << "Erro ao ler registro do arquivo_" << i << ".dat" << endl;
+//                continue;
+//            }
+//            registros.push_back(criarNo(aluno));
+//        }
+//        // Ordena os registros e insere os registros no arquivo de saída
+//        Node* raizArvore = construirArvoreDePerdedores(registros);
+//        inserirNoArquivo(arquivoSaida, raizArvore);
+//        i++;
+//        sprintf(nomeParticao, "../files/particao%d.dat", i);
+//        // Libera a memória ocupada pela árvore
+//        liberarArvore(raizArvore);
+//    }
+//}
+//
+//void chama_arvore(FILE* in){
+//
+//    std::string folderPath = "../files";
+//    ordenarRegistros(getFilesFromFolder(folderPath),in);
+//}

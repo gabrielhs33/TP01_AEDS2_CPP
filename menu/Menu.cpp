@@ -105,6 +105,7 @@ void Menu::application() {
                     case 8:
 
                         selecao_com_substituicao(out, 6);
+                        //chama_arvore(out);
                         break;
 
                     case -1:
