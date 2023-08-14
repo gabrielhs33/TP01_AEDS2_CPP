@@ -43,7 +43,6 @@ void ordena_aluno_id(FILE *arq, int tam);
 void le_alunos(FILE *in);
 
 //ordena os alunos no arquivo em ordem alfabetica pelo nome
-
 Aluno* busca_sequencial(int id, FILE* file);
 
 void insere_no_arquivo( FILE  *out);

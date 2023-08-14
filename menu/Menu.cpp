@@ -95,7 +95,7 @@ void Menu::application() {
                     case 6:
                         int qtd;
                          qtd = selecao_com_substituicao(out, 6);
-                         intercalacao_otima(out, qtd);
+                         intercalacao_otima( out,qtd);
                          insere_no_arquivo(out);
                          printf("\narquivo ordenado");
                         break;
@@ -167,7 +167,7 @@ void adiciona_aluno(FILE *in) {
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 100;
+    long int qtd = 10;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i <= qtd; i++) {

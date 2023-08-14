@@ -16,7 +16,7 @@ void intercalacao_otima(FILE *out, int numParticoes) {
         sprintf(nomeParticao, "../files/particao%d.dat", i);
         particoes[i] = fopen(nomeParticao, "rb");
 
-        if (particoes[i] == NULL) {
+        if (particoes[i] == nullptr) {
             printf("Erro ao abrir a partição %s.\n", nomeParticao);
 
             for (int j = 0; j < i; j++) {
@@ -32,16 +32,16 @@ void intercalacao_otima(FILE *out, int numParticoes) {
 
         alunoAtual[i] = le_aluno(particoes[i]);
 
-        if (alunoAtual[i] == NULL) {
+        if (alunoAtual[i] == nullptr) {
             indices[i] = -1;
         } else {
             indices[i] = i;
         }
     }
 
-    while (1) {
+    while (true) {
         int menorIndice = -1;
-        Aluno *menoraluno = nullptr;
+        auto *menoraluno = new Aluno;
 
         for (int i = 0; i < numParticoes; i++) {
             if (indices[i] != -1 && (menorIndice == -1 || (alunoAtual[i]->id < menoraluno->id))) {
@@ -58,7 +58,7 @@ void intercalacao_otima(FILE *out, int numParticoes) {
 
         free(menoraluno);
         alunoAtual[menorIndice] = le_aluno(particoes[menorIndice]);
-        if (alunoAtual[menorIndice] == NULL) {
+        if (alunoAtual[menorIndice] == nullptr) {
             indices[menorIndice] = -1;
         }
     }
