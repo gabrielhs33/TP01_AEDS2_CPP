@@ -217,15 +217,19 @@ void le_alunos(FILE *in) {
 void insere_no_arquivo( FILE  *out){
 
     FILE *in = std::fopen("teste.dat", "rb");
-
     rewind(in);
+
+    auto *a = (Aluno*) malloc(sizeof(Aluno));
+
     rewind(out);
-    Aluno *a;
 
     while ((a = le_aluno(in)) != nullptr) {
 
         salva_aluno(a,out);
+        free(a);
     }
+
+    fclose(in);
 }
 
 

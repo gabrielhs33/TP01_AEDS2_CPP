@@ -3,6 +3,7 @@
 #include "../entities/random/Random.h"
 #include <stdexcept>
 #include <limits>
+#include <climits>
 
 
 void Menu::application() {
@@ -167,7 +168,7 @@ void adiciona_aluno(FILE *in) {
 
 void cria_base_dados(FILE *out) {
 
-    long int qtd = 10;
+    long int qtd = 100;
 
     int ids_disponiveis[qtd - 1];
     for (int i = 1; i <= qtd; i++) {

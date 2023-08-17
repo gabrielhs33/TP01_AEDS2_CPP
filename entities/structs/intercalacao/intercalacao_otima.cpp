@@ -1,9 +1,9 @@
 #include "intercalacao_otima.h"
 
-void intercalacao_otima(FILE *out, int numParticoes) {
+void intercalacao_otima( FILE* out,int numParticoes) {
 
     FILE **particoes = (FILE **)malloc(numParticoes * sizeof(FILE *));
-    Aluno **alunoAtual = (Aluno **)malloc(numParticoes * sizeof(Aluno *));
+    auto **alunoAtual = (Aluno **)malloc(numParticoes * sizeof(Aluno *));
     int *indices = (int *)malloc(numParticoes * sizeof(int));
 
     FILE *saida= std::fopen("teste.dat", "wb+");

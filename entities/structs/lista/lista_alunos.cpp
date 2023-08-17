@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <cstdarg>
 
-
 void ler_aluno_lista(FILE *in, Tlista_aluno **list, int tam, int *congelados){
 
     if(tam < 0 || in == nullptr){
