@@ -17,7 +17,7 @@ void imprime(Aluno *aluno){
 }
 
 //Cria aluno
-Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente){
+Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente,int flag,int prox){
 
     auto * aluno = new Aluno;
     aluno->id = id;
@@ -25,6 +25,8 @@ Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_n
     std::strcpy(aluno->matricula, matricula);
     std::strcpy(aluno->data_nascimento, data_nascimento);
     aluno->coeficiente = coeficiente;
+    aluno->flag = flag;
+    aluno->prox = prox;
 
     return aluno;
 }
@@ -64,7 +66,9 @@ int tamanho() {
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 13 //data_nascimento
-           + sizeof(double); //coeficiente
+           + sizeof(double) //coeficiente
+           +sizeof(int)//prox
+           +sizeof (int);//flag
 }
 
 Aluno* busca_id(int id, FILE *arq,int tam) {

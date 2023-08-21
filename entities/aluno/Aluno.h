@@ -2,6 +2,9 @@
 #define TP01_AEDS2_CPP_ALUNO_H
 #include <string>
 
+#define LIBERADO 0
+#define OCUPADO 1
+
 
 class Aluno {
 
@@ -10,14 +13,16 @@ class Aluno {
         char nome[50];
         char matricula[10];
         char data_nascimento[13];
+        int flag;
         double coeficiente;
+        int prox;
 };
 
 //Imprime aluno
 void imprime(Aluno *aluno);
 
 //Cria aluno
-Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente );
+Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente,int flag,int prox);
 
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out);
@@ -46,7 +51,5 @@ void le_alunos(FILE *in);
 Aluno* busca_sequencial(int id, FILE* file);
 
 void insere_no_arquivo( FILE  *out);
-
-
 
 #endif
