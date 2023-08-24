@@ -2,7 +2,6 @@
 #include <cstdlib>
 #include <cstdio>
 
-
 void imprime_compartimento(TCompartimento *compartimento)
 {
     printf("%d\n", compartimento->prox);

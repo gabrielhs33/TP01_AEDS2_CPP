@@ -12,7 +12,7 @@ void cria_hash(char *nome_arquivo_hash, int tam)
     libera_compartimentos(lc);
 }
 
-int busca(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
+int busca(int aluno_cod, char *nome_arquivo_hash, char *nome_arquivo_dados)
 {
 
     /*
@@ -27,7 +27,7 @@ int busca(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
 
     Aluno *cl;
 
-    int end = cod_cli % 7,
+    int end = aluno_cod % 7,
             rc = -1,
             seguinte = 0;
 
@@ -36,7 +36,7 @@ int busca(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
     rc = fseek(arq_hash, (end) * tamanho_compartimento(), SEEK_SET);
     assert(rc == 0 && "Falha no seek\n");
 
-    FILE *arq_clientes = fopen(nome_arquivo_dados, "rb");
+    FILE *arq_alunos= fopen(nome_arquivo_dados, "rb");
 
     TCompartimento *lido = le_compartimento(arq_hash);
 
@@ -44,14 +44,14 @@ int busca(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
     seguinte = lido->prox;
 
     while(seguinte != -1){
-        rc = fseek(arq_clientes, seguinte * tamanho(), SEEK_SET);
+        rc = fseek(arq_alunos, seguinte * tamanho(), SEEK_SET);
         assert(rc == 0 && "Falha no seek\n");
 
-        cl = le_aluno(arq_clientes);
-        if(cl->id == cod_cli){
+        cl = le_aluno(arq_alunos);
+        if(cl->id == aluno_cod){
             if(cl->flag == OCUPADO){
                 fclose(arq_hash);
-                fclose(arq_clientes);
+                fclose(arq_alunos);
                 free(cl);
                 free(lido);
                 return seguinte;
@@ -63,7 +63,7 @@ int busca(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
 
     free(lido);
     fclose(arq_hash);
-    fclose(arq_clientes);
+    fclose(arq_alunos);
     return -1;
 }
 
@@ -184,28 +184,28 @@ int insere(Aluno *a, char *nome_arquivo_hash, char *nome_arquivo_dados, int num_
     return end_escrita / tamanho();
 }
 
-int exclui(int cod_cli, char *nome_arquivo_hash, char *nome_arquivo_dados)
+int exclui(int cod_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados)
 {
-    int end = busca(cod_cli, nome_arquivo_hash, nome_arquivo_dados),
+    int end = busca(cod_aluno, nome_arquivo_hash, nome_arquivo_dados),
             rc = -1;
-    FILE *arq_clientes;
+    FILE *arq_alunos;
     Aluno *cl;
 
     if(end != -1)
     {
-        arq_clientes = fopen(nome_arquivo_dados, "r+b");
+        arq_alunos = fopen(nome_arquivo_dados, "r+b");
 
-        rc = fseek(arq_clientes, end * tamanho(), SEEK_SET);
+        rc = fseek(arq_alunos, end * tamanho(), SEEK_SET);
         assert(rc == 0 && "Falha no seek\n");
 
-        cl = le_aluno(arq_clientes);
+        cl = le_aluno(arq_alunos);
         cl->flag = LIBERADO;
 
-        rc = fseek(arq_clientes, end * tamanho(), SEEK_SET);
+        rc = fseek(arq_alunos, end * tamanho(), SEEK_SET);
         assert(rc == 0 && "Falha no seek\n");
 
-        salva_aluno(cl, arq_clientes);
-        fclose(arq_clientes);
+        salva_aluno(cl, arq_alunos);
+        fclose(arq_alunos);
         free(cl);
     }
 
