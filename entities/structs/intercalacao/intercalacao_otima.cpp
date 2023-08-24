@@ -1,3 +1,4 @@
+#include <cstring>
 #include "intercalacao_otima.h"
 
 void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
@@ -98,11 +99,15 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
     for (int i = 0; i < qtdParticoes; i++)
     {
         char nomeArqParticao[20];
+        char nomeDaParticao[100];
+        sprintf(nomeDaParticao, "../files/particao%d.dat", i);
+
         snprintf(nomeArqParticao, sizeof(nomeArqParticao), "%s%d.dat", nomeDaParticao, i);
         particoes[i] = fopen(nomeArqParticao, "rb");
         if (particoes[i] == nullptr)
         {
-            printf("Erro ao abrir o arquivo da partição %s\n", nomeArqParticao);
+            printf("\nAAA: %s\n", nomeDaParticao);
+            printf("Erro ao abrir o arquivo da particaoo %s\n", nomeArqParticao);
             exit(1);
         }
 
@@ -136,7 +141,7 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
     {
         fclose(particoes[i]);
         char nomeArqParticao[20];
-        snprintf(nomeArqParticao, sizeof(nomeArqParticao), "%s%d.dat", nomeDaParticao, i);
+        snprintf(nomeArqParticao, sizeof(nomeArqParticao), "%s%d.dat", nomeArqParticao, i);
         remove(nomeArqParticao);
     }
 

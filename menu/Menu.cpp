@@ -96,7 +96,7 @@ void Menu::application() {
                     case 6:
                         int qtd;
                          qtd = selecao_com_substituicao(out, 6);
-                         intercalacao_otima( out,qtd);
+                         intercalacaoOtimaUnificadaFuncionarios( out,qtd);
                          insere_no_arquivo(out);
                          printf("\narquivo ordenado");
                         break;
@@ -143,7 +143,7 @@ Aluno* cadastra_aluno(int cont){
     std::cout << "Coeficiente: " << std::endl;
     std::cin>>coeficiente;
 
-    return  aluno(cont+1, nome,matricula,data_nascimento,coeficiente);
+    return aluno(cont + 1, nome, matricula, data_nascimento, coeficiente);
 }
 
 void adiciona_aluno(FILE *in) {

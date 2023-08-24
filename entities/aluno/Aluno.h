@@ -13,16 +13,16 @@ class Aluno {
         char nome[50];
         char matricula[10];
         char data_nascimento[13];
-        int flag;
+        //int flag;
         double coeficiente;
-        int prox;
+        //int prox;
 };
 
 //Imprime aluno
 void imprime(Aluno *aluno);
 
 //Cria aluno
-Aluno* aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente,int flag,int prox);
+Aluno *aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente);
 
 //Salva aluno no arquivo
 void salva_aluno(Aluno *aluno, FILE *out);

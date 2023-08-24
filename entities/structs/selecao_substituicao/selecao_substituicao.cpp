@@ -75,7 +75,7 @@ int selecao_com_substituicao(FILE* in, int M){
         }
         /*	7. Caso contrário:- fechar a partição de saída*/
         printf("###################################");
-        le_alunos(out);
+        //le_alunos(out);
 
         fclose(out);
         //	- descongelar os registros congelados

@@ -3,6 +3,8 @@
 
 #include "../../aluno/Aluno.h"
 
+void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes);
+
 void intercalacao_otima(FILE *out, int numParticoes);
 
 #endif //TP01_AEDS2_CPP_INTERCALACAO_OTIMA_H
