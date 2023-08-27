@@ -17,7 +17,7 @@ void imprime(Aluno *aluno){
 }
 
 //Cria aluno
-Aluno *aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente) {
+Aluno *aluno(int id, const char *nome, const char *matricula, const char *data_nascimento, double coeficiente, int flag, int prox) {
 
     auto * aluno = new Aluno;
     aluno->id = id;
@@ -25,8 +25,8 @@ Aluno *aluno(int id, const char *nome, const char *matricula, const char *data_n
     std::strcpy(aluno->matricula, matricula);
     std::strcpy(aluno->data_nascimento, data_nascimento);
     aluno->coeficiente = coeficiente;
-    //aluno->flag = flag;
-    //aluno->prox = prox;
+    aluno->flag = flag;
+    aluno->prox = prox;
 
     return aluno;
 }
@@ -213,6 +213,7 @@ void le_alunos(FILE *in) {
     Aluno *a;
 
     while ((a = le_aluno(in)) != nullptr) {
+
         imprime(a);
         free(a);
     }

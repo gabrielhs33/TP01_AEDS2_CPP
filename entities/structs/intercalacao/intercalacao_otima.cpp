@@ -1,7 +1,8 @@
 #include <cstring>
+#include <climits>
 #include "intercalacao_otima.h"
 
-void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
+void intercalacao_otima_alunos(  FILE *out, int qtdParticoes)
 {
     FILE *particoes[qtdParticoes + 1];
     Aluno *registros[qtdParticoes + 1];
@@ -30,7 +31,7 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
     int grupoSize = 4;
     int numGrupos = qtdParticoes / grupoSize;
 
-    for (int grupo = 0; grupo < qtdParticoes; grupo += 4)
+    for (int grupo = 0; grupo < numGrupos; grupo += 4)
     {
         Aluno *grupoRegistros[4 * qtdParticoes];
         int idx = 0;
@@ -67,14 +68,13 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
         char nomeParticao[100];
         char nomeDaParticao[100];
         char str1[100];
-        char str2[100] = ".dat";
 
         sprintf(nomeDaParticao, "../files/particao%d.dat", grupo);
 
         int numeroParticao = qtdParticoes + 1 + grupo / 4;
         sprintf(str1, "%d", numeroParticao);
         strcat(strcpy(nomeParticao, nomeDaParticao), str1);
-        strcat(strcpy(nomeParticao, nomeParticao), str2);
+
 
         FILE *filePartition = fopen(nomeParticao, "wb+");
         if (filePartition == nullptr)
@@ -116,6 +116,7 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
 
     while (true)
     {
+
         int menorCod = INT_MAX;
         int idxMenor = -1;
 
@@ -160,6 +161,20 @@ void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes)
     printf("Numero de comparacoes: %d\n\n\n", comparacao);
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void intercalacao_otima( FILE* out,int numParticoes) {
 

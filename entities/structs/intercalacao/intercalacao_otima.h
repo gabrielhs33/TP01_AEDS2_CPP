@@ -3,7 +3,7 @@
 
 #include "../../aluno/Aluno.h"
 
-void intercalacaoOtimaUnificadaFuncionarios(  FILE *out, int qtdParticoes);
+void intercalacao_otima_alunos(  FILE *out, int qtdParticoes);
 
 void intercalacao_otima(FILE *out, int numParticoes);
 

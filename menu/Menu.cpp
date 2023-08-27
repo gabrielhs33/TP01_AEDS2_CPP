@@ -96,7 +96,7 @@ void Menu::application() {
                     case 6:
                         int qtd;
                          qtd = selecao_com_substituicao(out, 6);
-                         intercalacaoOtimaUnificadaFuncionarios( out,qtd);
+                         intercalacao_otima( out,qtd);
                          insere_no_arquivo(out);
                          printf("\narquivo ordenado");
                         break;
@@ -143,7 +143,7 @@ Aluno* cadastra_aluno(int cont){
     std::cout << "Coeficiente: " << std::endl;
     std::cin>>coeficiente;
 
-    return aluno(cont + 1, nome, matricula, data_nascimento, coeficiente);
+    return aluno(cont + 1, nome, matricula, data_nascimento, coeficiente,OCUPADO,-1);
 }
 
 void adiciona_aluno(FILE *in) {
@@ -181,7 +181,7 @@ void cria_base_dados(FILE *out) {
         int id = ids_disponiveis[index];  // Seleciona o ID na posição aleatória
         ids_disponiveis[index] = ids_disponiveis[(qtd - 1) - i];
         Aluno *a = aluno(id, Random::cria_nome_aleatorio(), Random::cria_matricula_aleatoria(),
-                         Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio());
+                         Random::cria_data_aleatoria(), Random::cria_coeficiente_aleatorio(),OCUPADO,-1);
         salva_aluno(a, out);
         free(a);
     }

@@ -36,12 +36,65 @@ void ler_aluno_lista(FILE *in, Tlista_aluno **list, int tam, int *congelados){
     for(; i < tam; i++) congelados[i] = 1;
 }
 
-void libera_aluno(Tlista_aluno *lc)
+void libera_aluno(Tlista_aluno *la)
 {
     int i;
-    for (i = 0; i < lc->tam; i++) {
-        free(lc->lista[i]);
+    for (i = 0; i < la->tam; i++) {
+        free(la->lista[i]);
     }
-    free(lc->lista);
-    free(lc);
+    free(la->lista);
+    free(la);
+}
+
+
+Tlista_aluno * le_alunos_lista(char *nome_arquivo)
+{
+    int qtd = 0;
+    auto *la = (Tlista_aluno *)  malloc(sizeof(Tlista_aluno));
+    FILE *in = fopen(nome_arquivo, "rb");
+    if (in != nullptr) {
+        Aluno* cliente = nullptr;
+        while((cliente = le_aluno(in)) != nullptr) {
+            qtd += 1;
+            free(cliente);
+        }
+        fseek(in, 0, SEEK_SET);
+        la->tam = qtd;
+        la->lista = (Aluno **) malloc(sizeof(Aluno *) * (qtd));
+        qtd = 0;
+        while((cliente = le_aluno(in)) != nullptr) {
+            la->lista[qtd++] = cliente;
+        }
+        fclose(in);
+    } else {
+        la->tam = 0;
+        la->lista = nullptr;
+    }
+    return la;
+}
+
+Tlista_aluno *cria_alunos(int qtd, ...)
+{
+    va_list ap;
+    auto *la = (Tlista_aluno *)  malloc(sizeof(Tlista_aluno));
+    la->tam = qtd;
+    la->lista = (Aluno **) malloc(sizeof(Aluno *) * (qtd));
+    int i;
+    va_start(ap, qtd);
+    for (i = 0; i < qtd; i++) {
+        la->lista[i] = va_arg(ap, Aluno *);
+    }
+    va_end(ap);
+    return la;
+}
+
+
+void salva_alunos_lista(char *nome_arquivo, Tlista_aluno *la)
+{
+    FILE *out = fopen(nome_arquivo, "wb");
+    int i;
+    for (i = 0; i < la->tam; i++) {
+        salva_aluno(la->lista[i], out);
+    }
+    fclose(out);
 }
