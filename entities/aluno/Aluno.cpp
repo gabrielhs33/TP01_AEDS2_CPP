@@ -217,7 +217,8 @@ void le_alunos(FILE *in) {
 
     while ((a = le_aluno(in)) != nullptr) {
 
-        imprime(a);
+        if(a->flag == OCUPADO)
+            imprime(a);
         free(a);
     }
 }

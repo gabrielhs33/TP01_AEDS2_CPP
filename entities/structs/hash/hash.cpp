@@ -68,12 +68,12 @@ int main(){
                 end = insere(id,nome, NOME_ARQUIVO_HASH, NOME_ARQUIVO_DADOS,6 );
                 break;
             case 3:
-//                std::cout<<"informe o id que deseja buscar: "<<std::endl;
-//                std::cin>>id;
-                end = busca(59, NOME_ARQUIVO_HASH,NOME_ARQUIVO_DADOS);
+                std::cout<<"informe o id que deseja buscar: "<<std::endl;
+                std::cin>>id;
+                end = busca(id, NOME_ARQUIVO_HASH,NOME_ARQUIVO_DADOS);
                 if(end == -1){
 
-                    std::cout<<"registro não encontrado"<<std::endl;
+                    std::cout<<"registro nao encontrado"<<std::endl;
                 }else{
 
                     out = fopen(NOME_ARQUIVO_DADOS,"rb");
@@ -81,6 +81,16 @@ int main(){
                     imprime(le_aluno(out));
                     fclose(out);
                 }
+                break;
+            case 4:
+
+                std::cout<<"informe o id que deseja excluir: "<<std::endl;
+                std::cin>>id;
+                end = exclui(id,NOME_ARQUIVO_HASH,NOME_ARQUIVO_DADOS);
+                if(end == -1){
+                    std::cout<<"\nregistro não encontrado"<<std::endl;
+                }
+                break;
         }
 
     }
