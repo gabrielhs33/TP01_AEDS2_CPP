@@ -59,13 +59,13 @@ int main(){
                 break;
 
             case 2:
-                std::cout<<"informe as informações do registro que deseja inserir:"<<std::endl;
+                std::cout<<"informe as informacoes do registro que deseja inserir:"<<std::endl;
                 std::cout<<"id:"<<std::endl;
                 std::cin>>id;
                 std::cout<<"nome: "<<std::endl;
                 std::cin>>nome;
 
-                end = insere(id,nome, NOME_ARQUIVO_HASH, NOME_ARQUIVO_DADOS,6 );
+                end = insere(id,nome, NOME_ARQUIVO_HASH, NOME_ARQUIVO_DADOS);
                 break;
             case 3:
                 std::cout<<"informe o id que deseja buscar: "<<std::endl;

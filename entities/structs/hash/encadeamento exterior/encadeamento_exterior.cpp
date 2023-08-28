@@ -66,9 +66,12 @@ int busca(int cod_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados)
     fclose(arq_alunos);
     return -1;
 }
-int insere(int cod_aluno, char *nome_cli, char *nome_arquivo_hash, char *nome_arquivo_dados, int num_registros) {
+int insere(int cod_aluno, char *nome_cli, char *nome_arquivo_hash, char *nome_arquivo_dados) {
     printf("entrou");
     Aluno *cl = nullptr, *atual = nullptr;
+    FILE *arq_clientes = fopen(nome_arquivo_dados, "r+b");
+
+    int num_registros = contar_registros(arq_clientes);
 
     //	1. Calcular o endereço aplicando a função h(x)
     int end = cod_aluno % 7,
@@ -78,7 +81,7 @@ int insere(int cod_aluno, char *nome_cli, char *nome_arquivo_hash, char *nome_ar
             ultimo = 0;
 
     FILE *arq_hash = fopen(nome_arquivo_hash, "r+b");
-    FILE *arq_clientes = fopen(nome_arquivo_dados, "r+b");
+
 
     CompartimentoHash *lido;
 

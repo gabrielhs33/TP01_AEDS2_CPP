@@ -29,7 +29,7 @@ int busca(int cod_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados);
 // nome_arquivo_dados: nome do arquivo onde os dados estao armazenados
 // num_registros: numero de registros que ja existem gravados no arquivo
 // Retorna o endereco onde o aluno foi inserido, ou -1 se nao conseguiu inserir
-int insere(int cod_aluno, char *nome_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados, int num_registros);
+int insere(int cod_aluno, char *nome_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados);
 
 // Executa exclusao em Arquivos por Encadeamento Exterior (Hash)
 // cod_aluno: chave do alunoa ser excluido
