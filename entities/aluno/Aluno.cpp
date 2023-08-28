@@ -40,6 +40,8 @@ void salva_aluno(Aluno *aluno, FILE *out){
     fwrite(aluno->matricula, sizeof(char), sizeof(aluno->matricula), out);
     fwrite(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), out);
     fwrite(&aluno->coeficiente, sizeof(double), 1, out);
+    fwrite(&aluno->flag, sizeof(int), 1, out);
+    fwrite(&aluno->prox, sizeof(int), 1, out);
 }
 
 // Le um aluno do arquivo in na posicao atual do cursor
@@ -56,19 +58,20 @@ Aluno *le_aluno(FILE *in) {
     std::fread(aluno->matricula, sizeof(char), sizeof(aluno->matricula), in);
     std::fread(aluno->data_nascimento, sizeof(char), sizeof(aluno->data_nascimento), in);
     std::fread(&aluno->coeficiente, sizeof(double), 1, in);
-
+    std::fread(&aluno->flag, sizeof(int), 1, in);
+    std::fread(&aluno->prox, sizeof(int), 1, in);
     return aluno;
 }
 
 // Retorna tamanho do aluno em bytes
 int tamanho() {
-    return sizeof(int)  //cod
+    return sizeof(int)  //id
            + sizeof(char) * 50 //nome
            + sizeof(char) * 10 //matricula
            + sizeof(char) * 13 //data_nascimento
-           + sizeof(double); //coeficiente
-           //+sizeof(int)//prox
-           //+sizeof (int);//flag
+           + sizeof(double) //coeficiente
+           +sizeof(int)//prox
+           +sizeof (int);//flag
 }
 
 Aluno* busca_id(int id, FILE *arq,int tam) {

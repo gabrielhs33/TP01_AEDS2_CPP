@@ -66,12 +66,12 @@ int busca(int cod_aluno, char *nome_arquivo_hash, char *nome_arquivo_dados)
     fclose(arq_alunos);
     return -1;
 }
-int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arquivo_dados, int num_registros) {
+int insere(int cod_aluno, char *nome_cli, char *nome_arquivo_hash, char *nome_arquivo_dados, int num_registros) {
     printf("entrou");
     Aluno *cl = nullptr, *atual = nullptr;
 
     //	1. Calcular o endereço aplicando a função h(x)
-    int end = cod_cli % 7,
+    int end = cod_aluno % 7,
             end_escrita = num_registros * tamanho(),
             rc = -1,
             seguinte = 0,
@@ -106,7 +106,7 @@ int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arqu
 
         atual = le_aluno(arq_clientes);
 
-        if(atual->id == cod_cli){
+        if(atual->id == cod_aluno){
             if(atual->flag == OCUPADO){
                 fclose(arq_clientes);
                 fclose(arq_hash);
@@ -139,7 +139,7 @@ int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arqu
         rc = fseek(arq_clientes, end_escrita, SEEK_SET);
         assert(rc == 0 && "Falha no seek\n");
 
-        cl = aluno(cod_cli, nome_cli,"*****","#####",0.0,OCUPADO, -1 );
+        cl = aluno(cod_aluno, nome_cli,"*****","#####",0.0,OCUPADO, -1 );
         salva_aluno(cl, arq_clientes);
 
         lido->prox = end_escrita / tamanho();
@@ -153,7 +153,7 @@ int insere(int cod_cli, char *nome_cli, char *nome_arquivo_hash, char *nome_arqu
         rc = fseek(arq_clientes, end_escrita, SEEK_SET);
         assert(rc == 0 && "Falha no seek\n");
 
-        cl = aluno(cod_cli, nome_cli,"*****","#####",0.0, OCUPADO,seguinte);
+        cl = aluno(cod_aluno, nome_cli,"*****","#####",0.0, OCUPADO,seguinte);
         salva_aluno(cl, arq_clientes);
 
         /*Escrita do registro anterior, com seu prox atualizado*/

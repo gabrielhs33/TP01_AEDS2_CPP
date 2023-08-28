@@ -5,7 +5,6 @@
 #define LIBERADO 0
 #define OCUPADO 1
 
-
 class Aluno {
 
     public:
