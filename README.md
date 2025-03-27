@@ -188,5 +188,9 @@ public:
 </ul>
 
 <p align="center">
-  Desenvolvido por <a href="https://github.com/gabrielhs33">Gabriel Henrique</a> para AEDS II
+  Desenvolvido por 
+  <a href="https://github.com/gabrielhs33">Gabriel Henrique</a>, 
+  <a href="https://github.com/Yan-Raniere">Yan Raniere</a> e 
+  <a href="https://github.com/MikaelMagal">Mikael Magalhães</a> 
+  para AEDS II
 </p>
